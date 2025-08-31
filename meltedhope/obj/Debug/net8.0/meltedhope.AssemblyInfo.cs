@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("meltedhope")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8579c5c29da673778264501b532da0b40b5ca0ff")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2675a42215513d1f607524e6d6f563e95049acf3")]
 [assembly: System.Reflection.AssemblyProductAttribute("meltedhope")]
 [assembly: System.Reflection.AssemblyTitleAttribute("meltedhope")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

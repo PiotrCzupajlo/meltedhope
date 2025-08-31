@@ -1,6 +1,7 @@
 ﻿using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+using SFML.Audio;
 namespace meltedhope
 {
     class Program
@@ -24,7 +25,7 @@ namespace meltedhope
             enemy.Position = new Vector2f(1800, 200);
             enemy.Scale= new Vector2f(2,2);
             enemies.Add(enemy);
-
+            
             window.SetFramerateLimit(144);
 
             var texture = new Texture("candle_idle.png");
@@ -39,6 +40,10 @@ namespace meltedhope
             Sprite gameover = new Sprite(texture_gameover);
             gameover.Position = new Vector2f(760, 240);
             player.Position = new Vector2f(400, 300);
+            Music music = new Music("track.ogg");
+            music.Loop = true;
+            music.Volume = 5;
+            music.Play();
 
             float speed = 400f;
             Clock clock = new Clock();
