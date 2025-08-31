@@ -99,9 +99,11 @@ namespace meltedhope
                                 skip = true; break;
                             }
                         }
-                        if (skip) continue;
-                        player.Position += new Vector2f(0, -speed * delta);
-                        ismoving = true;
+                        if (!skip)
+                        {
+                            player.Position += new Vector2f(0, -speed * delta);
+                            ismoving = true;
+                        }
 
                     }
                     if (Keyboard.IsKeyPressed(Keyboard.Key.S))
@@ -114,9 +116,11 @@ namespace meltedhope
                                 skip = true; break;
                             }
                         }
-                        if (skip) continue;
-                        player.Position += new Vector2f(0, speed * delta);
-                        ismoving = true;
+                        if (!skip)
+                        {
+                            player.Position += new Vector2f(0, speed * delta);
+                            ismoving = true;
+                        }
                     }
                     if (Keyboard.IsKeyPressed(Keyboard.Key.A))
                     {
@@ -128,10 +132,12 @@ namespace meltedhope
                                 skip = true; break;
                             }
                         }
-                        if (skip) continue;
-                        player.Position += new Vector2f(-speed * delta, 0);
-                        player.Scale = new Vector2f(-1, 1);
-                        ismoving = true;
+                        if (!skip)
+                        {
+                            player.Position += new Vector2f(-speed * delta, 0);
+                            player.Scale = new Vector2f(-1, 1);
+                            ismoving = true;
+                        }
                     }
                     if (Keyboard.IsKeyPressed(Keyboard.Key.D))
                     {
@@ -143,10 +149,12 @@ namespace meltedhope
                                 skip = true; break;
                             }
                         }
-                        if (skip) continue;
-                        player.Position += new Vector2f(speed * delta, 0);
-                        player.Scale = new Vector2f(1, 1);
-                        ismoving = true;
+                        if (!skip)
+                        {
+                            player.Position += new Vector2f(speed * delta, 0);
+                            player.Scale = new Vector2f(1, 1);
+                            ismoving = true;
+                        }
                     }
                     if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
                     {
