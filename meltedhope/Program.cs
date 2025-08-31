@@ -13,8 +13,8 @@ namespace meltedhope
             List<Barrier> barriers = new List<Barrier>();
             List<Enemy> enemies = new List<Enemy>();
             List<Texture> enemy_walking = new List<Texture>();
-            enemy_walking.Add(new Texture("candle_enemy.png"));
-            enemy_walking.Add(new Texture("candle_enemy2.png"));
+            enemy_walking.Add(new Texture("assets/candle_enemy.png"));
+            enemy_walking.Add(new Texture("assets/candle_enemy2.png"));
             barriers.Add(new Barrier(0,0,1920,10)); //top
             barriers.Add(new Barrier(0,1070,1920,1080));//bottom
             barriers.Add(new Barrier(0,0,10,1080));//left
@@ -28,19 +28,19 @@ namespace meltedhope
             
             window.SetFramerateLimit(144);
 
-            var texture = new Texture("candle_idle.png");
+            var texture = new Texture("assets/candle_idle.png");
             Character player = new Character(texture);
-            var texture2 = new Texture("candle_idle2.png");
-            var texture3 = new Texture("candle_move1.png");
-            var texture4 = new Texture("candle_move2.png");
-            var texture_fireball = new Texture("fireball.png");
-            var texture_background = new Texture("background.png");
-            var texture_gameover = new Texture("gameover.png");
+            var texture2 = new Texture("assets/candle_idle2.png");
+            var texture3 = new Texture("assets/candle_move1.png");
+            var texture4 = new Texture("assets/candle_move2.png");
+            var texture_fireball = new Texture("assets/fireball.png");
+            var texture_background = new Texture("assets/background.png");
+            var texture_gameover = new Texture("assets/gameover.png");
             Sprite background = new Sprite(texture_background);
             Sprite gameover = new Sprite(texture_gameover);
             gameover.Position = new Vector2f(760, 240);
             player.Position = new Vector2f(400, 300);
-            Music music = new Music("track.ogg");
+            Music music = new Music("assets/track.ogg");
             music.Loop = true;
             music.Volume = 5;
             music.Play();
