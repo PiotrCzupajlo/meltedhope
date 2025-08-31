@@ -20,15 +20,22 @@ namespace meltedhope
         public short TopLeftY { get; private set; }
         public short BottomLeftY { get; private set; }
         public short attackcooldown { get; set; }
+        public List<Texture> animation { get; set; }
+        public short tick { get; set; }
+        public short current_texture_id { get; set; }
 
-        public Enemy(Texture texture, int health, int damage, float speed) : base(texture)
+        public Enemy(List<Texture> texture, int health, int damage, float speed)
         {
+            animation = texture;
             this.Health = health;
             this.Damage = damage;
             this.Speed = speed;
 
-            this.Origin = new Vector2f(texture.Size.X / 2f, texture.Size.Y / 2f);
+            this.Origin = new Vector2f(texture.ElementAt(0).Size.X / 2f, texture.ElementAt(0).Size.Y / 2f);
             attackcooldown = 0;
+            this.Texture=texture.ElementAt(0);
+            tick = 0;
+            current_texture_id = 0;
         }
         public bool decreasehealth(int amount)
         {
@@ -41,6 +48,16 @@ namespace meltedhope
         }
         public  bool Update(Character character)
         {
+            tick++;
+            if (tick == 50)
+            {
+                tick = 0;
+                current_texture_id++;
+                if (current_texture_id >= animation.Count)
+                    current_texture_id = 0;
+                this.Texture = animation.ElementAt(current_texture_id);
+
+            }
             if(attackcooldown>0)
                 attackcooldown--;
             bool ischaracterdead = false;

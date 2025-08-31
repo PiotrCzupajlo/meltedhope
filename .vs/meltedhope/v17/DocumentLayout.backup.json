@@ -7,16 +7,19 @@
       "RelativeMoniker": "D:0:0:{82CD6B28-5007-4B3A-AE79-9C36B6AABA92}|meltedhope\\meltedhope.csproj|solutionrelative:meltedhope\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{82CD6B28-5007-4B3A-AE79-9C36B6AABA92}|meltedhope\\meltedhope.csproj|c:\\users\\stasi\\desktop\\meltedhope\\meltedhope\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{82CD6B28-5007-4B3A-AE79-9C36B6AABA92}|meltedhope\\meltedhope.csproj|solutionrelative:meltedhope\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{82CD6B28-5007-4B3A-AE79-9C36B6AABA92}|meltedhope\\meltedhope.csproj|c:\\users\\stasi\\desktop\\meltedhope\\meltedhope\\sprite_bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{82CD6B28-5007-4B3A-AE79-9C36B6AABA92}|meltedhope\\meltedhope.csproj|solutionrelative:meltedhope\\sprite_bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{82CD6B28-5007-4B3A-AE79-9C36B6AABA92}|meltedhope\\meltedhope.csproj|c:\\users\\stasi\\desktop\\meltedhope\\meltedhope\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{82CD6B28-5007-4B3A-AE79-9C36B6AABA92}|meltedhope\\meltedhope.csproj|solutionrelative:meltedhope\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{82CD6B28-5007-4B3A-AE79-9C36B6AABA92}|meltedhope\\meltedhope.csproj|c:\\users\\stasi\\desktop\\meltedhope\\meltedhope\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{82CD6B28-5007-4B3A-AE79-9C36B6AABA92}|meltedhope\\meltedhope.csproj|solutionrelative:meltedhope\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\stasi\\AppData\\Local\\Temp\\.vsdbgsrc\\78542450410afb54f876b825f87057e505f864dc3b964d8797b59d1e90754742\\RenderStates.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{82CD6B28-5007-4B3A-AE79-9C36B6AABA92}|meltedhope\\meltedhope.csproj|c:\\users\\stasi\\desktop\\meltedhope\\meltedhope\\barrier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -30,7 +33,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,7 +41,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
+              "Title": "RenderStates.cs",
+              "DocumentMoniker": "C:\\Users\\stasi\\AppData\\Local\\Temp\\.vsdbgsrc\\78542450410afb54f876b825f87057e505f864dc3b964d8797b59d1e90754742\\RenderStates.cs",
+              "RelativeDocumentMoniker": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\78542450410afb54f876b825f87057e505f864dc3b964d8797b59d1e90754742\\RenderStates.cs",
+              "ToolTip": "C:\\Users\\stasi\\AppData\\Local\\Temp\\.vsdbgsrc\\78542450410afb54f876b825f87057e505f864dc3b964d8797b59d1e90754742\\RenderStates.cs[Tylko do odczytu]",
+              "RelativeToolTip": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\78542450410afb54f876b825f87057e505f864dc3b964d8797b59d1e90754742\\RenderStates.cs[Tylko do odczytu]",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAQwEYAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-31T09:29:47.803Z",
+              "EditorCaption": "[Tylko do odczytu]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Character.cs",
               "DocumentMoniker": "C:\\Users\\stasi\\Desktop\\meltedhope\\meltedhope\\Character.cs",
               "RelativeDocumentMoniker": "meltedhope\\Character.cs",
@@ -57,14 +73,14 @@
               "RelativeDocumentMoniker": "meltedhope\\Enemy.cs",
               "ToolTip": "C:\\Users\\stasi\\Desktop\\meltedhope\\meltedhope\\Enemy.cs",
               "RelativeToolTip": "meltedhope\\Enemy.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAcwCwAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAgwDkAAABHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-30T14:21:10.663Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Barrier.cs",
               "DocumentMoniker": "C:\\Users\\stasi\\Desktop\\meltedhope\\meltedhope\\Barrier.cs",
               "RelativeDocumentMoniker": "meltedhope\\Barrier.cs",
@@ -72,31 +88,30 @@
               "RelativeToolTip": "meltedhope\\Barrier.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-30T11:04:42.207Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-30T11:04:42.207Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Sprite_Bullet.cs",
               "DocumentMoniker": "C:\\Users\\stasi\\Desktop\\meltedhope\\meltedhope\\Sprite_Bullet.cs",
               "RelativeDocumentMoniker": "meltedhope\\Sprite_Bullet.cs",
               "ToolTip": "C:\\Users\\stasi\\Desktop\\meltedhope\\meltedhope\\Sprite_Bullet.cs",
               "RelativeToolTip": "meltedhope\\Sprite_Bullet.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAowEAAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABcAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-30T10:05:12.33Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\stasi\\Desktop\\meltedhope\\meltedhope\\Program.cs",
               "RelativeDocumentMoniker": "meltedhope\\Program.cs",
               "ToolTip": "C:\\Users\\stasi\\Desktop\\meltedhope\\meltedhope\\Program.cs",
               "RelativeToolTip": "meltedhope\\Program.cs",
-              "ViewState": "AgIAAJkAAAAAAAAAAAAtwL8AAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwBYAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-29T14:22:58.898Z",
               "EditorCaption": ""

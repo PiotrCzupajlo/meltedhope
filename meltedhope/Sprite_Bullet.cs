@@ -21,6 +21,7 @@ namespace meltedhope
             this.direction = direction;
             this.Origin = new Vector2f(texture.Size.X / 2f, texture.Size.Y / 2f);
             this.damage = damage;
+            
         }
         public ValueTuple<bool,short> Update(float deltaTime,List<Barrier> barriers,List<Enemy> enemies)
         {

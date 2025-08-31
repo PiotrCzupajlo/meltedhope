@@ -11,12 +11,16 @@ namespace meltedhope
             List<Sprite_Bullet> bullets = new List<Sprite_Bullet>();
             List<Barrier> barriers = new List<Barrier>();
             List<Enemy> enemies = new List<Enemy>();
+            List<Texture> enemy_walking = new List<Texture>();
+            enemy_walking.Add(new Texture("candle_enemy.png"));
+            enemy_walking.Add(new Texture("candle_enemy2.png"));
             barriers.Add(new Barrier(0,0,1920,10)); //top
             barriers.Add(new Barrier(0,1070,1920,1080));//bottom
             barriers.Add(new Barrier(0,0,10,1080));//left
             barriers.Add(new Barrier(1910,0,1920,1080));//right
             var window = new RenderWindow(new VideoMode(1920, 1080), "MeltedHope",Styles.Fullscreen);
-            Enemy enemy = new Enemy(new Texture("candle_enemy.png"), 100, 10, 2f);
+
+            Enemy enemy = new Enemy(enemy_walking, 100, 10, 2f);
             enemy.Position = new Vector2f(1800, 200);
             enemy.Scale= new Vector2f(2,2);
             enemies.Add(enemy);
@@ -24,7 +28,7 @@ namespace meltedhope
             window.SetFramerateLimit(144);
 
             var texture = new Texture("candle_idle.png");
-            Character player = new Character(texture,100);
+            Character player = new Character(texture);
             var texture2 = new Texture("candle_idle2.png");
             var texture3 = new Texture("candle_move1.png");
             var texture4 = new Texture("candle_move2.png");
