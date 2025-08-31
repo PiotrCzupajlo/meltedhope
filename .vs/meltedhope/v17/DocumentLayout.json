@@ -1,0 +1,109 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\stasi\\Desktop\\meltedhope\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{82CD6B28-5007-4B3A-AE79-9C36B6AABA92}|meltedhope\\meltedhope.csproj|c:\\users\\stasi\\desktop\\meltedhope\\meltedhope\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{82CD6B28-5007-4B3A-AE79-9C36B6AABA92}|meltedhope\\meltedhope.csproj|solutionrelative:meltedhope\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{82CD6B28-5007-4B3A-AE79-9C36B6AABA92}|meltedhope\\meltedhope.csproj|c:\\users\\stasi\\desktop\\meltedhope\\meltedhope\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{82CD6B28-5007-4B3A-AE79-9C36B6AABA92}|meltedhope\\meltedhope.csproj|solutionrelative:meltedhope\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{82CD6B28-5007-4B3A-AE79-9C36B6AABA92}|meltedhope\\meltedhope.csproj|c:\\users\\stasi\\desktop\\meltedhope\\meltedhope\\sprite_bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{82CD6B28-5007-4B3A-AE79-9C36B6AABA92}|meltedhope\\meltedhope.csproj|solutionrelative:meltedhope\\sprite_bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{82CD6B28-5007-4B3A-AE79-9C36B6AABA92}|meltedhope\\meltedhope.csproj|c:\\users\\stasi\\desktop\\meltedhope\\meltedhope\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{82CD6B28-5007-4B3A-AE79-9C36B6AABA92}|meltedhope\\meltedhope.csproj|solutionrelative:meltedhope\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{82CD6B28-5007-4B3A-AE79-9C36B6AABA92}|meltedhope\\meltedhope.csproj|c:\\users\\stasi\\desktop\\meltedhope\\meltedhope\\barrier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{82CD6B28-5007-4B3A-AE79-9C36B6AABA92}|meltedhope\\meltedhope.csproj|solutionrelative:meltedhope\\barrier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Character.cs",
+              "DocumentMoniker": "C:\\Users\\stasi\\Desktop\\meltedhope\\meltedhope\\Character.cs",
+              "RelativeDocumentMoniker": "meltedhope\\Character.cs",
+              "ToolTip": "C:\\Users\\stasi\\Desktop\\meltedhope\\meltedhope\\Character.cs",
+              "RelativeToolTip": "meltedhope\\Character.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAiwBIAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-30T14:33:48.091Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Enemy.cs",
+              "DocumentMoniker": "C:\\Users\\stasi\\Desktop\\meltedhope\\meltedhope\\Enemy.cs",
+              "RelativeDocumentMoniker": "meltedhope\\Enemy.cs",
+              "ToolTip": "C:\\Users\\stasi\\Desktop\\meltedhope\\meltedhope\\Enemy.cs",
+              "RelativeToolTip": "meltedhope\\Enemy.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAkwDkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-30T14:21:10.663Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Barrier.cs",
+              "DocumentMoniker": "C:\\Users\\stasi\\Desktop\\meltedhope\\meltedhope\\Barrier.cs",
+              "RelativeDocumentMoniker": "meltedhope\\Barrier.cs",
+              "ToolTip": "C:\\Users\\stasi\\Desktop\\meltedhope\\meltedhope\\Barrier.cs",
+              "RelativeToolTip": "meltedhope\\Barrier.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-30T11:04:42.207Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Sprite_Bullet.cs",
+              "DocumentMoniker": "C:\\Users\\stasi\\Desktop\\meltedhope\\meltedhope\\Sprite_Bullet.cs",
+              "RelativeDocumentMoniker": "meltedhope\\Sprite_Bullet.cs",
+              "ToolTip": "C:\\Users\\stasi\\Desktop\\meltedhope\\meltedhope\\Sprite_Bullet.cs",
+              "RelativeToolTip": "meltedhope\\Sprite_Bullet.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAowEAAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-30T10:05:12.33Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\stasi\\Desktop\\meltedhope\\meltedhope\\Program.cs",
+              "RelativeDocumentMoniker": "meltedhope\\Program.cs",
+              "ToolTip": "C:\\Users\\stasi\\Desktop\\meltedhope\\meltedhope\\Program.cs",
+              "RelativeToolTip": "meltedhope\\Program.cs",
+              "ViewState": "AgIAAJkAAAAAAAAAAAAtwL8AAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-29T14:22:58.898Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
