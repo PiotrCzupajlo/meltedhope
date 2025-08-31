@@ -19,7 +19,7 @@ namespace meltedhope
             barriers.Add(new Barrier(0,1070,1920,1080));//bottom
             barriers.Add(new Barrier(0,0,10,1080));//left
             barriers.Add(new Barrier(1910,0,1920,1080));//right
-            var window = new RenderWindow(new VideoMode(1920, 1080), "MeltedHope",Styles.Fullscreen);
+            RenderWindow window = new RenderWindow(new VideoMode(1920, 1080), "MeltedHope",Styles.Fullscreen);
 
             Enemy enemy = new Enemy(enemy_walking, 100, 10, 2f);
             enemy.Position = new Vector2f(1800, 200);
@@ -44,7 +44,11 @@ namespace meltedhope
             music.Loop = true;
             music.Volume = 5;
             music.Play();
-
+            Texture healthcandle = new Texture("assets/healthcandle.png");
+            Texture bodyt = new Texture("assets/body.png");
+            Sprite body = new Sprite(bodyt);
+            Healthbar healthbar = new Healthbar(healthcandle,body);
+            healthbar.Position = new Vector2f(1500, 200);
             float speed = 400f;
             Clock clock = new Clock();
 
@@ -232,8 +236,9 @@ namespace meltedhope
                         }
 
                     }
-
-
+                    healthbar.Update(player.health,100);
+                    window.Draw(healthbar.body);
+                    window.Draw(healthbar);
                     window.Display();
 
                 }

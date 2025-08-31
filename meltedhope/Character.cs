@@ -9,7 +9,7 @@ namespace meltedhope
 {
     public class Character:Sprite
     {
-        double health;
+        public float health;
         public Character(Texture texture) : base(texture)
         {
             this.Origin = new SFML.System.Vector2f(texture.Size.X / 2f, texture.Size.Y / 2f);
