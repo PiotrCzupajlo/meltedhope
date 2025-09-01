@@ -26,8 +26,9 @@ namespace meltedhope
         public EllipseShape shadow;
         public float shadow_offset_x;
         public float shadow_offset_y;
+        public float dynamic_mirrored_offset;
 
-        public Enemy(int health, int damage, float speed, float shadow_offset_x, float shadow_offset_y)
+        public Enemy(int health, int damage, float speed, float shadow_offset_x, float shadow_offset_y,float dynamic_mirrored_offset)
         {
             this.Health = health;
             this.Damage = damage;
@@ -42,6 +43,7 @@ namespace meltedhope
             this.shadow_offset_y = shadow_offset_y;
             tick = 0;
             current_texture_id = 0;
+            this.dynamic_mirrored_offset = dynamic_mirrored_offset;
         }
         public bool decreasehealth(int amount,List<Enemy> enemies, List<Item> items)
         {
@@ -79,15 +81,25 @@ namespace meltedhope
                 deltaX /= length;
                 if (deltaX > 0) {
                     this.Scale = new Vector2f(2, 2);
-
                 }
                 else
                 {
-                    this.Scale = new Vector2f(-2, 2);
+                        this.Scale = new Vector2f(-2, 2);
                 }
                 deltaY /= length;
                 Position = new Vector2f(Position.X + deltaX * Speed, Position.Y + deltaY * Speed);
-
+                if (this.Scale == new Vector2f(-2, 2))
+                {
+                    shadow.Position = new Vector2f(
+                    this.Position.X + shadow_offset_x,
+                    (this.Position.Y + this.GetGlobalBounds().Height / 2f) + shadow_offset_y);
+                }
+                else
+                {
+                    shadow.Position = new Vector2f(
+                    this.Position.X - shadow_offset_x+dynamic_mirrored_offset,
+                    (this.Position.Y + this.GetGlobalBounds().Height / 2f) + shadow_offset_y);
+                }
             }
             else
             {
@@ -98,9 +110,7 @@ namespace meltedhope
                     attackcooldown = 50;
                 }
             }
-            shadow.Position = new Vector2f(
-            this.Position.X+shadow_offset_x,
-            (this.Position.Y + this.GetGlobalBounds().Height / 2f) +shadow_offset_y);
+
             return ischaracterdead;
         }
 
