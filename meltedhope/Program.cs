@@ -9,25 +9,19 @@ namespace meltedhope
 
         static void Main()
         {
+            #region lists
             List<Sprite_Bullet> bullets = new List<Sprite_Bullet>();
             List<Barrier> barriers = new List<Barrier>();
             List<Enemy> enemies = new List<Enemy>();
             List<Texture> enemy_walking = new List<Texture>();
+            #endregion
+            #region initializing stuff
             enemy_walking.Add(new Texture("assets/candle_enemy.png"));
             enemy_walking.Add(new Texture("assets/candle_enemy2.png"));
             barriers.Add(new Barrier(0,0,1920,10)); //top
             barriers.Add(new Barrier(0,1070,1920,1080));//bottom
             barriers.Add(new Barrier(0,0,10,1080));//left
             barriers.Add(new Barrier(1910,0,1920,1080));//right
-            var window = new RenderWindow(new VideoMode(1920, 1080), "MeltedHope",Styles.Fullscreen);
-
-            Enemy enemy = new Enemy(enemy_walking, 100, 10, 2f);
-            enemy.Position = new Vector2f(1800, 200);
-            enemy.Scale= new Vector2f(2,2);
-            enemies.Add(enemy);
-            
-            window.SetFramerateLimit(144);
-
             var texture = new Texture("assets/candle_idle.png");
             Character player = new Character(texture);
             var texture2 = new Texture("assets/candle_idle2.png");
@@ -36,6 +30,16 @@ namespace meltedhope
             var texture_fireball = new Texture("assets/fireball.png");
             var texture_background = new Texture("assets/background.png");
             var texture_gameover = new Texture("assets/gameover.png");
+            RenderWindow window = new RenderWindow(new VideoMode(1920, 1080), "MeltedHope",Styles.Fullscreen);
+
+            Enemy enemy = new Enemy(enemy_walking, 100, 10, 2f);
+            enemy.Position = new Vector2f(1800, 200);
+            enemy.Scale= new Vector2f(2,2);
+            enemies.Add(enemy);
+            
+            window.SetFramerateLimit(144);
+
+
             Sprite background = new Sprite(texture_background);
             Sprite gameover = new Sprite(texture_gameover);
             gameover.Position = new Vector2f(760, 240);
@@ -44,10 +48,14 @@ namespace meltedhope
             music.Loop = true;
             music.Volume = 5;
             music.Play();
-
+            Texture healthcandle = new Texture("assets/healthcandle.png");
+            Texture bodyt = new Texture("assets/body.png");
+            Sprite body = new Sprite(bodyt);
+            Healthbar healthbar = new Healthbar(healthcandle,body);
+            healthbar.Position = new Vector2f(1830, 500);
             float speed = 400f;
             Clock clock = new Clock();
-
+            #endregion
             window.Closed += (sender, e) => window.Close();
             short tick = 0;
             short opt = 0;
@@ -58,6 +66,7 @@ namespace meltedhope
             {
                 if (!game)
                 {
+                    #region walking and idle animation
                     if (bullet_cooldown > 0)
                         bullet_cooldown--;
                     if (tick < 30)
@@ -85,10 +94,11 @@ namespace meltedhope
                         }
                     }
                     ismoving = false;
+                    #endregion
                     window.DispatchEvents();
 
                     float delta = clock.Restart().AsSeconds();
-
+                    #region moving character
                     if (Keyboard.IsKeyPressed(Keyboard.Key.W))
                     {
                         bool skip = false;
@@ -156,6 +166,8 @@ namespace meltedhope
                             ismoving = true;
                         }
                     }
+                    #endregion
+                    #region making bullets
                     if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
                     {
                         if (bullet_cooldown == 0)
@@ -197,12 +209,14 @@ namespace meltedhope
                             bullet_cooldown = 50;
                         }
                     }
+                    #endregion
                     if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
                         window.Close();
                     window.Clear(new SFML.Graphics.Color(25, 50, 75));
                     window.Draw(background);
                     window.Draw(player);
                     bool ischaracterdead = false;
+                    #region iterating through the enemies and bullets
                     foreach (Enemy e in enemies)
                     {
                         ischaracterdead = e.Update(player);
@@ -232,7 +246,10 @@ namespace meltedhope
                         }
 
                     }
-
+                    #endregion
+                    healthbar.Update(player.health,100);
+                    window.Draw(healthbar);
+                    window.Draw(healthbar.body);
 
                     window.Display();
 
