@@ -23,7 +23,7 @@ namespace meltedhope
             this.damage = damage;
             
         }
-        public ValueTuple<bool,short> Update(float deltaTime,List<Barrier> barriers,List<Enemy> enemies)
+        public ValueTuple<bool,short> Update(float deltaTime,List<Barrier> barriers,List<Enemy> enemies,List<Item> items)
         {
             bool todestroy = false;
             float speed = 800f;
@@ -58,7 +58,7 @@ namespace meltedhope
                     if (enemy.isColliding(this.Position.X + speed * deltaTime, this.Position.Y))
                     {
                         todestroy = true;
-                        iskill=enemy.decreasehealth(damage);
+                        iskill=enemy.decreasehealth(damage,enemies,items);
                         if(iskill)
                             enemyid = (short)enemies.IndexOf(enemy);
                     break;
@@ -66,10 +66,6 @@ namespace meltedhope
                 }
             
             return (todestroy,enemyid);
-        }
-        public bool checkcollision() {
-
-            return true;
         }
     }
 }

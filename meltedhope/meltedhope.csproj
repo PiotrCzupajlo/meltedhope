@@ -13,6 +13,12 @@
     </Content>
   </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Enemies\enemies_assets\**" />
+      <EmbeddedResource Remove="Enemies\enemies_assets\**" />
+      <None Remove="Enemies\enemies_assets\**" />
+    </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="OpenTK" Version="4.9.4" />
     <PackageReference Include="OpenTK.Windowing.Desktop" Version="4.9.4" />
