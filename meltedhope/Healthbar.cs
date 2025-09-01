@@ -17,11 +17,18 @@ namespace meltedhope
         }
         public void Update(float health, float maxHealth)
         {
+            
             float ratio = health / maxHealth;
             if (ratio < 0) ratio = 0;
             if (ratio > 1) ratio = 1;
-            this.body.Scale = new SFML.System.Vector2f(1,ratio);
-            this.body.Position = new SFML.System.Vector2f(this.Position.X - (this.Texture.Size.X / 2) + (this.body.Texture.Size.X * ratio) / 2, this.Position.Y);
+
+            this.body.Scale = new SFML.System.Vector2f(1, ratio);
+
+            this.body.Position = new SFML.System.Vector2f(
+                this.Position.X-45,
+                this.Position.Y + ((this.Texture.Size.Y * (1 - ratio) / 2)-43)
+            );
+
         }
     }
 }
