@@ -10,7 +10,7 @@ namespace meltedhope.Enemies
 {
     public class BasicZombie :Enemy
     {
-        public BasicZombie() : base(100, 10, 1.0f)
+        public BasicZombie() : base(100, 10, 1.0f,15,-3)
         {
             this.animation = new List<SFML.Graphics.Texture>();
             this.animation.Add(new SFML.Graphics.Texture("assets/candle_enemy_1.png"));
