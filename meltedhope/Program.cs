@@ -22,7 +22,7 @@ namespace meltedhope
             barriers.Add(new Barrier(0,0,10,1080));//left
             barriers.Add(new Barrier(1910,0,1920,1080));//right
             var texture = new Texture("assets/candle_idle.png");
-            Character player = new Character(texture);
+            Character player = new Character(texture, new Vector2f(400, 300));
             var texture2 = new Texture("assets/candle_idle2.png");
             var texture3 = new Texture("assets/candle_move1.png");
             var texture4 = new Texture("assets/candle_move2.png");
@@ -41,7 +41,6 @@ namespace meltedhope
             Sprite background = new Sprite(texture_background);
             Sprite gameover = new Sprite(texture_gameover);
             gameover.Position = new Vector2f(760, 240);
-            player.Position = new Vector2f(400, 300);
             Music music = new Music("assets/track.ogg");
             music.Loop = true;
             music.Volume = 5;
@@ -109,7 +108,7 @@ namespace meltedhope
                         }
                         if (!skip)
                         {
-                            player.Position += new Vector2f(0, -speed * delta);
+                            player.changeposition(new Vector2f(0, -speed * delta));
                             ismoving = true;
                         }
 
@@ -126,7 +125,7 @@ namespace meltedhope
                         }
                         if (!skip)
                         {
-                            player.Position += new Vector2f(0, speed * delta);
+                            player.changeposition(new Vector2f(0, speed * delta));
                             ismoving = true;
                         }
                     }
@@ -142,7 +141,7 @@ namespace meltedhope
                         }
                         if (!skip)
                         {
-                            player.Position += new Vector2f(-speed * delta, 0);
+                            player.changeposition(new Vector2f(-speed * delta, 0));
                             player.Scale = new Vector2f(-1, 1);
                             ismoving = true;
                         }
@@ -159,7 +158,7 @@ namespace meltedhope
                         }
                         if (!skip)
                         {
-                            player.Position += new Vector2f(speed * delta, 0);
+                            player.changeposition(new Vector2f(speed * delta, 0));
                             player.Scale = new Vector2f(1, 1);
                             ismoving = true;
                         }
@@ -212,12 +211,15 @@ namespace meltedhope
                         window.Close();
                     window.Clear(new SFML.Graphics.Color(25, 50, 75));
                     window.Draw(background);
+                    window.Draw(player.shadow);
                     window.Draw(player);
+
                     bool ischaracterdead = false;
                     #region iterating through the enemies and bullets
                     foreach (Enemy e in enemies)
                     {
                         ischaracterdead = e.Update(player);
+                        window.Draw(e.shadow);
                         window.Draw(e);
                         if (ischaracterdead)
                         {
@@ -252,8 +254,11 @@ namespace meltedhope
                             items_ground.RemoveAt(i);
                         }
                         else
-                            window.Draw(items_ground[i]);
+                        {
 
+                            window.Draw(items_ground[i].shadow);
+                            window.Draw(items_ground[i]);
+                        }
                     }
 
                     #endregion

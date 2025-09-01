@@ -9,9 +9,9 @@ namespace meltedhope.Items
     public class Old_Wax:Item
     {
         public int healamount = 40;
-        public Old_Wax(int x, int y) :base(x,y)
+        public Old_Wax(int x, int y) :base(new SFML.Graphics.Texture("assets/old_wax_item.png"),x,y,15,60)
         {
-            this.Texture = new SFML.Graphics.Texture("assets/old_wax_item.png");
+
         }
         public override void collectitem(Character character)
         {
