@@ -37,13 +37,16 @@ namespace meltedhope
             tick = 0;
             current_texture_id = 0;
         }
-        public bool decreasehealth(int amount)
+        public bool decreasehealth(int amount,List<Enemy> enemies, List<Item> items)
         {
             bool isdead = false;
             if (Health > amount)
                 Health -= amount;
             else
                 isdead = true;
+
+            if (isdead == true)
+            { iskilled(enemies, items); }
             return isdead;
         }
         public  bool Update(Character character)

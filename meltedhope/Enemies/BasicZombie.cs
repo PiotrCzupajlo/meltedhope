@@ -21,7 +21,7 @@ namespace meltedhope.Enemies
         }
         public override void iskilled(List<Enemy> enemies, List<Item> items)
         {
-            items.Add(new Items.Old_Wax());
+            items.Add(new Items.Old_Wax(Convert.ToInt16(this.Position.X+50),Convert.ToInt16(this.Position.Y+50)));
         }
     }
 }

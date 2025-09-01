@@ -29,7 +29,7 @@ namespace meltedhope
             var texture_fireball = new Texture("assets/fireball.png");
             var texture_background = new Texture("assets/background.png");
             var texture_gameover = new Texture("assets/gameover.png");
-            RenderWindow window = new RenderWindow(new VideoMode(1920, 1080), "MeltedHope",Styles.Fullscreen);
+            RenderWindow window = new RenderWindow(new VideoMode(1920, 1080), "MeltedHope"/*,Styles.Fullscreen*/);
 
             BasicZombie basicZombie = new BasicZombie();
             basicZombie.Position = new Vector2f(1800, 200);
@@ -227,7 +227,7 @@ namespace meltedhope
                     }
                     for (int i = bullets.Count - 1; i >= 0; i--)
                     {
-                        var toDestroy = bullets[i].Update(delta, barriers, enemies);
+                        var toDestroy = bullets[i].Update(delta, barriers, enemies, items_ground);
 
                         if (!toDestroy.Item1)
                         {
@@ -244,6 +244,18 @@ namespace meltedhope
                         }
 
                     }
+                    for (int i = items_ground.Count - 1; i >= 0; i--)
+                    { 
+                    bool result = items_ground[i].Update(player);
+                        if (result)
+                        {
+                            items_ground.RemoveAt(i);
+                        }
+                        else
+                            window.Draw(items_ground[i]);
+
+                    }
+
                     #endregion
                     healthbar.Update(player.health,100);
                     window.Draw(healthbar);
