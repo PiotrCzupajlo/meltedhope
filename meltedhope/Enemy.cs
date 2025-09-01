@@ -24,16 +24,16 @@ namespace meltedhope
         public short tick { get; set; }
         public short current_texture_id { get; set; }
 
-        public Enemy(List<Texture> texture, int health, int damage, float speed)
+        public Enemy(int health, int damage, float speed)
         {
-            animation = texture;
             this.Health = health;
             this.Damage = damage;
             this.Speed = speed;
 
-            this.Origin = new Vector2f(texture.ElementAt(0).Size.X / 2f, texture.ElementAt(0).Size.Y / 2f);
+            //this.Origin = new Vector2f(texture.ElementAt(0).Size.X / 2f, texture.ElementAt(0).Size.Y / 2f);
+            //this.Texture = texture.ElementAt(0);
             attackcooldown = 0;
-            this.Texture=texture.ElementAt(0);
+
             tick = 0;
             current_texture_id = 0;
         }
@@ -114,6 +114,10 @@ namespace meltedhope
             float maxY = Math.Max(TopLeftY, BottomLeftY);
 
             return (x >= minX && x <= maxX && y >= minY && y <= maxY);
+        }
+        public virtual void iskilled(List<Enemy> enemies, List<Item> items) { 
+        
+        
         }
 
     }

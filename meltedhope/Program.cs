@@ -2,6 +2,7 @@
 using SFML.System;
 using SFML.Window;
 using SFML.Audio;
+using meltedhope.Enemies;
 namespace meltedhope
 {
     class Program
@@ -13,11 +14,9 @@ namespace meltedhope
             List<Sprite_Bullet> bullets = new List<Sprite_Bullet>();
             List<Barrier> barriers = new List<Barrier>();
             List<Enemy> enemies = new List<Enemy>();
-            List<Texture> enemy_walking = new List<Texture>();
+            List<Item> items_ground = new List<Item>();
             #endregion
             #region initializing stuff
-            enemy_walking.Add(new Texture("assets/candle_enemy.png"));
-            enemy_walking.Add(new Texture("assets/candle_enemy2.png"));
             barriers.Add(new Barrier(0,0,1920,10)); //top
             barriers.Add(new Barrier(0,1070,1920,1080));//bottom
             barriers.Add(new Barrier(0,0,10,1080));//left
@@ -32,10 +31,9 @@ namespace meltedhope
             var texture_gameover = new Texture("assets/gameover.png");
             RenderWindow window = new RenderWindow(new VideoMode(1920, 1080), "MeltedHope",Styles.Fullscreen);
 
-            Enemy enemy = new Enemy(enemy_walking, 100, 10, 2f);
-            enemy.Position = new Vector2f(1800, 200);
-            enemy.Scale= new Vector2f(2,2);
-            enemies.Add(enemy);
+            BasicZombie basicZombie = new BasicZombie();
+            basicZombie.Position = new Vector2f(1800, 200);
+            enemies.Add(basicZombie);
             
             window.SetFramerateLimit(144);
 
