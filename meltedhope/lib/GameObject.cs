@@ -25,13 +25,12 @@ namespace StadnardGameLib
 
         public void HandleUpdate(RenderWindow window, float deltaTime)
         {
-            if(IsVisible)
-                GameScreen.Instance?.Window.Draw(this);
-
             OnUpdate();
             OnUpdate(window);
             OnUpdate(deltaTime);
             OnUpdate(window, deltaTime);
+            if (IsVisible)
+                GameScreen.Instance?.Window.Draw(this);
         }
 
         public void Destroy()

@@ -12,6 +12,7 @@ namespace meltedhope
 {
     public class Player : GameObject
     {
+        public EllipseShape shadow;
         static readonly List<Texture> idleTextures =
         [
             new Texture("assets/art/candle_idle.png"),
@@ -27,6 +28,9 @@ namespace meltedhope
         {
             this.Tag = "Player";
             GameScreen.Instance?.AddGameObject(new Healthbar());
+            shadow = new EllipseShape(20f, new Vector2f(2f, 0.5f));
+            shadow.FillColor = new Color(0, 0, 0, 120);
+            shadow.Origin = new Vector2f(shadow.Radius, shadow.Radius);
         }
 
         public bool isMoving = false;
@@ -40,11 +44,12 @@ namespace meltedhope
         private float shootTimer = 0f;
         private float iFramesTimer = 0f;
 
-        public override void OnUpdate(float deltaTime)
+        public override void OnUpdate(RenderWindow window,float deltaTime)
         {
             if (iFramesTimer > 0) iFramesTimer -= deltaTime;
             animationTimer += deltaTime;
             shootTimer += deltaTime;
+            window.Draw(shadow);
             HandleMovment(deltaTime);
             HandleAnimation();
             HandleShooting();
@@ -69,6 +74,9 @@ namespace meltedhope
 
             isMoving = direction.X != 0 || direction.Y != 0;
             this.Position += direction * (speed * deltaTime);
+            shadow.Position = new Vector2f(
+            this.Position.X,
+            (this.Position.Y + this.GetGlobalBounds().Height / 2f) - 3);
         }
 
         void HandleAnimation()
@@ -120,34 +128,6 @@ namespace meltedhope
             iFramesTimer = iFramesCooldown;
         }
 
-        // public EllipseShape shadow;
-        // public bool healthdecrease(int amount)
-        // {
-        //     bool isdead = false;
-        //     if (health > amount)
-        //         health -= amount;
-        //     else
-        //         isdead = true;
-        //     return isdead;
-        // }
-        // public bool heallthincrease(int amount)
-        // {
-        //     bool isfull = false;
-        //     if (health + amount <= 100)
-        //         health += amount;
-        //     else
-        //     {
-        //         health = 100;
-        //         isfull = true;
-        //     }
-        //     return isfull;
-        // }
-        // public void changeposition(Vector2f vector2F)
-        // {
-        //     this.Position += vector2F;
-        //     shadow.Position = new Vector2f(
-        //     this.Position.X,
-        //     (this.Position.Y + this.GetGlobalBounds().Height / 2f) - 3);
-        // }
+
     }
 }

@@ -29,8 +29,9 @@ namespace meltedhope
 
             realy = y;
         }
-        public override void OnUpdate(float deltatime)
+        public override void OnUpdate(RenderWindow window ,float deltatime)
         {
+            window.Draw(shadow);
             if (!direction)
             {
                 offset += 0.1f;
@@ -44,6 +45,7 @@ namespace meltedhope
                     direction = false;
             }
             this.Position = new SFML.System.Vector2f(this.Position.X, realy + offset);
+            this.shadow.Scale = new Vector2f(2f - (offset / 100), 0.5f - (offset / 100));
             GameObject? gameObject = GameScreen.Instance?.CheckCollisionWhitelist(this, ["Player"]);
             if (gameObject != null)
                 OnCollision(gameObject);

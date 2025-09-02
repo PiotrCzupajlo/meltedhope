@@ -17,20 +17,31 @@ namespace meltedhope
         public float damage;
         public float speed;
         private readonly List<Texture> walkTextures;
+        public EllipseShape shadow;
+        public float shadow_offset_x;
+        public float shadow_offset_y;
+        public float dynamic_mirrored_offset;
 
-        public Enemy(List<Texture> walkTextures, Vector2f position , float health, float damage, float speed) : base(walkTextures[0], position)
+        public Enemy(List<Texture> walkTextures, Vector2f position , float health, float damage, float speed, float shadow_offset_x, float shadow_offset_y, float dynamic_mirrored_offset) : base(walkTextures[0], position)
         {
             this.Tag = "Enemy";
             this.walkTextures = walkTextures;
             this.health = health;
             this.damage = damage;
             this.speed = speed;
+            shadow = new EllipseShape(25f, new Vector2f(2f, 0.5f));
+            shadow.FillColor = new Color(0, 0, 0, 120);
+            shadow.Origin = new Vector2f(shadow.Radius, shadow.Radius);
+            this.shadow_offset_x = shadow_offset_x;
+            this.shadow_offset_y = shadow_offset_y;
+            this.dynamic_mirrored_offset = dynamic_mirrored_offset;
         }
 
         private float animationTimer = 0f;
 
-        public override void OnUpdate(float deltaTime)
+        public override void OnUpdate(RenderWindow window,float deltaTime)
         {
+            window.Draw(shadow);
             animationTimer += deltaTime;
             var player = GameScreen.Instance?.GetFirst<Player>();
             if (player != null)
