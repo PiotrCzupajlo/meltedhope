@@ -25,6 +25,7 @@ namespace meltedhope
             gameScreen.AddGameObject(new Barrier(new Vector2f(0, 1)));
             gameScreen.AddGameObject(new Barrier(new Vector2f(-1, 0)));
             gameScreen.AddGameObject(new BasicZombie(new Vector2f(800, 900)));
+            gameScreen.AddGameObject(new XpBar());
             gameScreen.AddListOfGameObjects(items.Cast<GameObject>().ToList());
 
             var Clock = new Clock();

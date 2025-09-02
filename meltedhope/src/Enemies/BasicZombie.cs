@@ -1,4 +1,5 @@
 ﻿using meltedhope.Items;
+using meltedhope.src.Items;
 using SFML.Graphics;
 using SFML.System;
 using StadnardGameLib;
@@ -38,6 +39,8 @@ namespace meltedhope
             List<GameObject> gameObjects = new List<GameObject>();
             Item old_wax = new Old_Wax(this.Position.X + 50, this.Position.Y);
             gameObjects.Add(old_wax);
+            YellowXpStar yellowXpStar = new YellowXpStar(this.Position.X - 50, this.Position.Y);
+            gameObjects.Add(yellowXpStar);
             return gameObjects;
             //Drop the shit
         }

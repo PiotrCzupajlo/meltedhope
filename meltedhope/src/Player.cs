@@ -12,6 +12,9 @@ namespace meltedhope
 {
     public class Player : GameObject
     {
+        public float CurrentXp = 0;
+        public float XpToNextLvL = 100;
+        public float lvl = 1;
         public EllipseShape shadow;
         static readonly List<Texture> idleTextures =
         [
@@ -127,6 +130,30 @@ namespace meltedhope
             this.health -= damage;
             iFramesTimer = iFramesCooldown;
         }
+        public void IncreaseHealth(float heal)
+        {
+            if(heal+this.health<=100)
+                this.health += heal;
+            else
+                this.health = 100;
+        }
+        public void AddXp(float xp)
+        {
+            this.CurrentXp += xp;
+            while (this.CurrentXp >= XpToNextLvL)
+            {
+                this.CurrentXp -= XpToNextLvL;
+                LevelUp();
+            }
+        }
+        public void LevelUp()
+        {
+            lvl++;
+            AbilitySelection();
+
+        }
+        public void AbilitySelection() { }
+
 
 
     }
