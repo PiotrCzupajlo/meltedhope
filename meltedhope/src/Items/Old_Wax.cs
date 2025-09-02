@@ -1,4 +1,5 @@
-﻿using StadnardGameLib;
+﻿using SFML.Graphics;
+using StadnardGameLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,8 @@ namespace meltedhope.Items
     public class Old_Wax:Item
     {
         public float healamount = 4f;
-        public Old_Wax(float x,float y) :base(new SFML.Graphics.Texture("assets/art/old_wax_item.png"),x,y,-1,12)
+        public static Texture texture = new SFML.Graphics.Texture("assets/art/old_wax_item.png");
+        public Old_Wax(float x,float y) :base(texture,x,y,-1,12)
         {
 
         }

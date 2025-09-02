@@ -1,15 +1,17 @@
-﻿using System;
+﻿using SFML.Graphics;
+using StadnardGameLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace meltedhope.src.Items
+namespace meltedhope
 {
     public class YellowXpStar:Item
     {
         public int XpAmount = 40;
-        public YellowXpStar(float x, float y) : base(new SFML.Graphics.Texture("assets/art/yellow.png"), x, y, -1,12)
+        public static Texture texture = new SFML.Graphics.Texture("assets/art/yellow.png");
+        public YellowXpStar(float x, float y) : base(texture, x, y, -1,12)
         {
 
         }

@@ -4,6 +4,7 @@ using SFML.Window;
 using SFML.Audio;
 using meltedhope;
 using StadnardGameLib;
+using meltedhope.src;
 
 namespace meltedhope
 {
@@ -16,8 +17,9 @@ namespace meltedhope
             RenderWindow window = new RenderWindow(new VideoMode(WindowWidth, WindowHeight), "MeltedHope"/*,Styles.Fullscreen*/);
             window.SetFramerateLimit(144);
             window.Closed += (sender, e) => window.Close();
+            EnemySpawningSystem enemySpawningSystem = new EnemySpawningSystem();
             Sprite background = new Sprite(new Texture("assets/art/background.png"));
-            var gameScreen = new GameScreen(window);
+            var gameScreen = new GameScreen(window,enemySpawningSystem);
             List<Item> items = new List<Item>();
             gameScreen.AddGameObject(new Player(new Vector2f(400, 300)));
             gameScreen.AddGameObject(new Barrier(new Vector2f(0, -1)));
@@ -27,6 +29,7 @@ namespace meltedhope
             gameScreen.AddGameObject(new BasicZombie(new Vector2f(800, 900)));
             gameScreen.AddGameObject(new XpBar());
             gameScreen.AddListOfGameObjects(items.Cast<GameObject>().ToList());
+            gameScreen.AddGameObject(enemySpawningSystem);
 
             var Clock = new Clock();
             while (window.IsOpen)

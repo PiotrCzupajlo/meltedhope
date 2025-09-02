@@ -10,8 +10,7 @@ namespace StadnardGameLib
         public bool IsVisible = true;
         public bool IsCollidable = true;
         public bool ToDestroy = false;
-
-
+        public GameObject() { }
         public GameObject(Texture texture) : base(texture)
         {
             this.Origin = new Vector2f(texture.Size.X / 2f, texture.Size.Y / 2f);
