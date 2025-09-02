@@ -62,7 +62,7 @@ namespace meltedhope
 
         void HandleAnimation()
         {
-            int frame = (int)(animationTimer * 7) % walkTextures.Count;
+            int frame = (int)(animationTimer * 3) % walkTextures.Count;
             this.Texture = walkTextures[frame];
         }
 

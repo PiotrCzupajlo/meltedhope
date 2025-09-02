@@ -2,7 +2,7 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using SFML.Audio;
-using meltedhope.Enemies;
+using meltedhope;
 using StadnardGameLib;
 
 namespace meltedhope
@@ -18,13 +18,14 @@ namespace meltedhope
             window.Closed += (sender, e) => window.Close();
             Sprite background = new Sprite(new Texture("assets/art/background.png"));
             var gameScreen = new GameScreen(window);
-
+            List<Item> items = new List<Item>();
             gameScreen.AddGameObject(new Player(new Vector2f(400, 300)));
             gameScreen.AddGameObject(new Barrier(new Vector2f(0, -1)));
             gameScreen.AddGameObject(new Barrier(new Vector2f(1, 0)));
             gameScreen.AddGameObject(new Barrier(new Vector2f(0, 1)));
             gameScreen.AddGameObject(new Barrier(new Vector2f(-1, 0)));
             gameScreen.AddGameObject(new BasicZombie(new Vector2f(800, 900)));
+            gameScreen.AddListOfGameObjects(items.Cast<GameObject>().ToList());
 
             var Clock = new Clock();
             while (window.IsOpen)

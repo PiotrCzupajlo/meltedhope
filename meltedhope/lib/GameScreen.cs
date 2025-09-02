@@ -15,8 +15,8 @@ namespace StadnardGameLib
                 throw new Exception("Only one instance of GameScreen is allowed.");
             Instance = this;
             this.Window = window;
-        }
 
+        }
         public void AddGameObject(GameObject obj)
         {
             CreationQueue.Add(obj);
@@ -33,15 +33,24 @@ namespace StadnardGameLib
                 if (GameObjects[i].ToDestroy)
                 {
                     GameObjects[i].OnDeletion();
+                    List<GameObject> obj = GameObjects[i].OnDeletionCreateNewObj();
+                        if(obj!=null)
+                            AddListOfGameObjects(obj);  
                     GameObjects.RemoveAt(i);
                     i--;
                 }
             }
-
             foreach (var gameObject in GameObjects)
             {
                 if (gameObject.IsActive)
                     gameObject.HandleUpdate(Window, deltaTime);
+            }
+        }
+        public void AddListOfGameObjects(List<GameObject> obj)
+        {
+            foreach (GameObject g in obj)
+            { 
+            CreationQueue.Add(g);
             }
         }
 
@@ -63,7 +72,11 @@ namespace StadnardGameLib
                     continue;
 
                 if (obj.GetGlobalBounds().Intersects(gameObject.GetGlobalBounds()))
+                {
+                    Console.WriteLine($"Collision detected between {obj.Tag} and {gameObject.Tag}");
                     return gameObject;
+                }
+
             }
             return null;
         }
@@ -74,6 +87,9 @@ namespace StadnardGameLib
             {
                 if (!gameObject.IsActive || !gameObject.IsCollidable || gameObject == obj || !tags.Contains(gameObject.Tag))
                     continue;
+                var r1 = obj.GetGlobalBounds();
+                var r2 = gameObject.GetGlobalBounds();
+
 
                 if (obj.GetGlobalBounds().Intersects(gameObject.GetGlobalBounds()))
                     return gameObject;

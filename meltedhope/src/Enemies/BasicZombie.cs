@@ -1,7 +1,9 @@
-﻿using SFML.Graphics;
+﻿using meltedhope.Items;
+using SFML.Graphics;
 using SFML.System;
+using StadnardGameLib;
 
-namespace meltedhope.Enemies
+namespace meltedhope
 {
     public class BasicZombie : Enemy
     {
@@ -16,8 +18,12 @@ namespace meltedhope.Enemies
             this.Scale = new Vector2f(2f, 2f);
         }
 
-        public override void OnDeletion()
+        public override List<GameObject> OnDeletionCreateNewObj()
         {
+            List<GameObject> gameObjects = new List<GameObject>();
+            Item old_wax = new Old_Wax(this.Position.X + 50, this.Position.Y);
+            gameObjects.Add(old_wax);
+            return gameObjects;
             //Drop the shit
         }
     }

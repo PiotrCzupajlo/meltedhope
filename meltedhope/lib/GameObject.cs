@@ -11,6 +11,7 @@ namespace StadnardGameLib
         public bool IsCollidable = true;
         public bool ToDestroy = false;
 
+
         public GameObject(Texture texture) : base(texture)
         {
             this.Origin = new Vector2f(texture.Size.X / 2f, texture.Size.Y / 2f);
@@ -43,5 +44,6 @@ namespace StadnardGameLib
         public virtual void OnUpdate(float deltaTime) { }
         public virtual void OnUpdate(RenderWindow window, float deltaTime) { }
         public virtual void OnDeletion() { }
+        public virtual List<GameObject> OnDeletionCreateNewObj() { return null; }
     }
 }
