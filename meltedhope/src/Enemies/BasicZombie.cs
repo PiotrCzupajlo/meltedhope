@@ -1,5 +1,5 @@
 ﻿using meltedhope.Items;
-using meltedhope.src.Items;
+using meltedhope;
 using SFML.Graphics;
 using SFML.System;
 using StadnardGameLib;

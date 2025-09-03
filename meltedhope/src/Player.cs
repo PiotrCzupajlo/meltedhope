@@ -16,6 +16,9 @@ namespace meltedhope
         public float XpToNextLvL = 100;
         public float lvl = 1;
         public EllipseShape shadow;
+        public int current_bullet_multiplyer = 1;
+        public float bullet_speed = 1f;
+        public float bullet_damage = 1f;
         static readonly List<Texture> idleTextures =
         [
             new Texture("assets/art/candle_idle.png"),
@@ -46,6 +49,9 @@ namespace meltedhope
         private float animationTimer = 0f;
         private float shootTimer = 0f;
         private float iFramesTimer = 0f;
+        public float damagefromburn = 0.001f;
+        private float burningcooldown = 1000000;
+        private float burningtimer = 0;
 
         public override void OnUpdate(RenderWindow window,float deltaTime)
         {
@@ -56,6 +62,17 @@ namespace meltedhope
             HandleMovment(deltaTime);
             HandleAnimation();
             HandleShooting();
+            burningdmg(deltaTime);
+
+        }
+        public void burningdmg(float deltatime) { 
+        this.health -= damagefromburn;
+            burningtimer += deltatime;
+            if (burningtimer >= burningcooldown)
+            {
+                this.health -= damagefromburn;
+                burningtimer = 0;
+            }
         }
 
         void HandleMovment(float deltaTime)
@@ -119,7 +136,26 @@ namespace meltedhope
                 return;
 
             shootTimer = 0;
-            GameScreen.Instance?.AddGameObject(new Bullet(this.Position, direction, damage: 1));
+            if (direction.X == 0)
+            {
+                for (int i = 0; i < current_bullet_multiplyer; i++)
+                {
+                    if(i%2==0)
+                        GameScreen.Instance?.AddGameObject(new Bullet(new Vector2f(this.Position.X - ((25 * i) - 25 * (i / 2)), this.Position.Y), direction, bullet_damage));
+                    else   
+                        GameScreen.Instance?.AddGameObject(new Bullet(new Vector2f(this.Position.X + ((25 * i) - 25 * (i / 2)), this.Position.Y), direction, bullet_damage));
+                }
+            }
+            else
+            {
+                for (int i = 0; i < current_bullet_multiplyer; i++)
+                {
+                    if(i%2==0)
+                        GameScreen.Instance?.AddGameObject(new Bullet(new Vector2f(this.Position.X , this.Position.Y- ((25 * i) - 25 * (i / 2))), direction, bullet_damage));
+                    else
+                        GameScreen.Instance?.AddGameObject(new Bullet(new Vector2f(this.Position.X, this.Position.Y + ((25 * i) - 25 * (i / 2))), direction, bullet_damage));
+                }
+            }
         }
 
         public void TakeDamage(float damage)
@@ -132,10 +168,10 @@ namespace meltedhope
         }
         public void IncreaseHealth(float heal)
         {
-            if(heal+this.health<=100)
+            if(heal+this.health<=10)
                 this.health += heal;
             else
-                this.health = 100;
+                this.health = 10;
         }
         public void AddXp(float xp)
         {
@@ -149,7 +185,10 @@ namespace meltedhope
         public void LevelUp()
         {
             lvl++;
+            XpToNextLvL *= 1.5f;
+            XpBar.Instance?.OnUpdate();
             AbilitySelection();
+            GameScreen.Instance.isPaused = true;
 
         }
         public void AbilitySelection() { }

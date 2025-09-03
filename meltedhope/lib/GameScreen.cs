@@ -1,3 +1,4 @@
+using meltedhope.src;
 using SFML.Graphics;
 
 namespace StadnardGameLib
@@ -8,14 +9,18 @@ namespace StadnardGameLib
         public RenderWindow Window;
         public List<GameObject> GameObjects = [];
         private List<GameObject> CreationQueue = [];
+        public EnemySpawningSystem enemySpawningSystem;
+        public bool isPaused = false;
+        public AbilityManager abilityManager;
 
-        public GameScreen(RenderWindow window)
+        public GameScreen(RenderWindow window,EnemySpawningSystem enemySpawningSystem,AbilityManager abilityManager)
         {
             if (Instance != null)
                 throw new Exception("Only one instance of GameScreen is allowed.");
             Instance = this;
             this.Window = window;
-
+            this.enemySpawningSystem = enemySpawningSystem;
+            this.abilityManager = abilityManager;
         }
         public void AddGameObject(GameObject obj)
         {

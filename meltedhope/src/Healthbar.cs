@@ -6,11 +6,13 @@ namespace meltedhope
 {
     public class Healthbar : GameObject
     {
+        public static Healthbar? Instance;
         private static readonly Texture baseTexture = new Texture("assets/art/healthcandle.png");
         private static readonly Texture bodyTexture = new Texture("assets/art/body.png");
         private GameObject body;
         public Healthbar() : base(baseTexture)
         {
+            Instance = this;
             this.Position = new Vector2f(1830, 500);
             this.body = new GameObject(bodyTexture, this.Position);
             body.Origin = new Vector2f(0, 0);
