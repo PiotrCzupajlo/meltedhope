@@ -16,6 +16,7 @@ namespace meltedhope
         public float XpToNextLvL = 100;
         public float lvl = 1;
         public EllipseShape shadow;
+        public int current_bullet_multiplyer = 1;
         static readonly List<Texture> idleTextures =
         [
             new Texture("assets/art/candle_idle.png"),
@@ -46,7 +47,7 @@ namespace meltedhope
         private float animationTimer = 0f;
         private float shootTimer = 0f;
         private float iFramesTimer = 0f;
-        private float damagefromburn = 0.001f;
+        public float damagefromburn = 0.001f;
         private float burningcooldown = 1000000;
         private float burningtimer = 0;
 
@@ -133,7 +134,26 @@ namespace meltedhope
                 return;
 
             shootTimer = 0;
-            GameScreen.Instance?.AddGameObject(new Bullet(this.Position, direction, damage: 1));
+            if (direction.X == 0)
+            {
+                for (int i = 0; i < current_bullet_multiplyer; i++)
+                {
+                    if(i%2==0)
+                        GameScreen.Instance?.AddGameObject(new Bullet(new Vector2f(this.Position.X - ((25 * i) - 25 * (i / 2)), this.Position.Y), direction, damage: 1));
+                    else   
+                        GameScreen.Instance?.AddGameObject(new Bullet(new Vector2f(this.Position.X + ((25 * i) - 25 * (i / 2)), this.Position.Y), direction, damage: 1));
+                }
+            }
+            else
+            {
+                for (int i = 0; i < current_bullet_multiplyer; i++)
+                {
+                    if(i%2==0)
+                        GameScreen.Instance?.AddGameObject(new Bullet(new Vector2f(this.Position.X , this.Position.Y- ((25 * i) - 25 * (i / 2))), direction, damage: 1));
+                    else
+                        GameScreen.Instance?.AddGameObject(new Bullet(new Vector2f(this.Position.X, this.Position.Y + ((25 * i) - 25 * (i / 2))), direction, damage: 1));
+                }
+            }
         }
 
         public void TakeDamage(float damage)

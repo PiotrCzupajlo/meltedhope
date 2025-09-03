@@ -11,15 +11,16 @@ namespace StadnardGameLib
         private List<GameObject> CreationQueue = [];
         public EnemySpawningSystem enemySpawningSystem;
         public bool isPaused = false;
+        public AbilityManager abilityManager;
 
-        public GameScreen(RenderWindow window,EnemySpawningSystem enemySpawningSystem)
+        public GameScreen(RenderWindow window,EnemySpawningSystem enemySpawningSystem,AbilityManager abilityManager)
         {
             if (Instance != null)
                 throw new Exception("Only one instance of GameScreen is allowed.");
             Instance = this;
             this.Window = window;
             this.enemySpawningSystem = enemySpawningSystem;
-
+            this.abilityManager = abilityManager;
         }
         public void AddGameObject(GameObject obj)
         {
