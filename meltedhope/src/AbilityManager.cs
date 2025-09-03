@@ -10,6 +10,8 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using SFML.Audio;
+using meltedhope.src.Abilities;
+using OpenTK.Graphics.OpenGL;
 
 namespace meltedhope.src
 {
@@ -17,40 +19,62 @@ namespace meltedhope.src
     {
         public static AbilityManager Instance;
         public List<Ability> abilities;
+        public bool isChoosing = false;
+        public int first = -1;
+        public int second = -1;
         public AbilityManager()
         {
             Instance = this;
             abilities = new List<Ability>();
 
-            abilities.Add(new Ability(new Texture("assets/art/ds_card.png")));
-            abilities.Add(new Ability(new Texture("assets/art/wr_card.png")));
+            abilities.Add(new Double_Shoot_Ability());
+            abilities.Add(new WaxRegenerationAbility());
+            abilities.Add(new Bigger_Flame_Ability());
         }
         public void Update(SFML.Graphics.RenderWindow window, float deltaTime)
         {
+            Random random = new Random();
+            if (isChoosing==false)
+            {
+                first = random.Next(0, abilities.Count - 1);
+                second = 0;
+                do
+                {
+                    second = random.Next(0, abilities.Count );
+
+                } while (second == first);
+                isChoosing = true;
+            }
             Player player = GameScreen.Instance.GetFirstByTag("Player") as Player;
-            abilities.ElementAt(0).Position=new SFML.System.Vector2f(700, 250);
-            abilities.ElementAt(1).Position=new SFML.System.Vector2f(950, 250);
-            window.Draw(abilities.ElementAt(0));
-            window.Draw(abilities.ElementAt(1));
+            abilities.ElementAt(first).Position=new SFML.System.Vector2f(825, 350);
+            abilities.ElementAt(second).Position=new SFML.System.Vector2f(1100, 350);
+            window.Draw(abilities.ElementAt(first));
+            window.Draw(abilities.ElementAt(second));
             window.MouseButtonPressed += (sender, e) =>
             {
                 if (e.Button == Mouse.Button.Left)
                 {
                     var mousePos = new Vector2i(e.X, e.Y);
                     var mouseWorldPos = window.MapPixelToCoords(mousePos);
-                    if (abilities.ElementAt(0).GetGlobalBounds().Contains(mouseWorldPos.X, mouseWorldPos.Y)&& GameScreen.Instance.isPaused==true)
+                    
+                    if (GameScreen.Instance.isPaused == true &&abilities.ElementAt(first).GetGlobalBounds().Contains(mouseWorldPos.X, mouseWorldPos.Y))
                     {
                         Console.WriteLine("Ability 1 chosen");
-                        player.current_bullet_multiplyer++;
-                        player.damagefromburn += 0.001f;
+                        bool result = abilities.ElementAt(first).MakeAChange(player);
                         GameScreen.Instance.isPaused = false;
+                        if(result)
+                            abilities.RemoveAt(first);
+                        isChoosing = false;
 
                     }
-                    else if (abilities.ElementAt(1).GetGlobalBounds().Contains(mouseWorldPos.X, mouseWorldPos.Y)&& GameScreen.Instance.isPaused==true)
+                    else if (GameScreen.Instance.isPaused == true &&abilities.ElementAt(second).GetGlobalBounds().Contains(mouseWorldPos.X, mouseWorldPos.Y) )
                     {
                         Console.WriteLine("Ability 2 chosen");
-                        player.damagefromburn -= 0.001f;
+                        bool result = abilities.ElementAt(1).MakeAChange(player);
+                        if(result)
+                            abilities.RemoveAt(second);
                         GameScreen.Instance.isPaused=false;
+                        isChoosing = false;
                     }
 
 

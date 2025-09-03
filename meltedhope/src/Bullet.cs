@@ -8,9 +8,9 @@ namespace meltedhope
     {
         private static readonly Texture baseTexture = new Texture("assets/art/fireball.png");
         Vector2f direction;
-        int damage;
+        float damage;
         float speed = 750f;
-        public Bullet(Vector2f position, Vector2f direction, int damage) : base(baseTexture, position)
+        public Bullet(Vector2f position, Vector2f direction, float damage) : base(baseTexture, position)
         {
             this.direction = direction;
             this.damage = damage;

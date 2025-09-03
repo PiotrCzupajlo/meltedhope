@@ -49,8 +49,7 @@ namespace meltedhope
                 if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
                     gameScreen.isPaused = false;
                 gameScreen.Update(deltaTime);
-                Healthbar.Instance?.OnUpdate();
-                XpBar.Instance?.OnUpdate();
+
                 if (gameScreen.isPaused)
                 {
                     
@@ -67,7 +66,8 @@ namespace meltedhope
                     pausedText.Position = new Vector2f(WindowWidth / 2.0f, WindowHeight / 2.0f);
                     window.Draw(pausedText);
                 }
-
+                Healthbar.Instance?.OnUpdate();
+                XpBar.Instance?.OnUpdate();
                 window.Display();
             }
         }
