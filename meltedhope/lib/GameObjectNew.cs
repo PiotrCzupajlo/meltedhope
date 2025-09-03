@@ -3,16 +3,16 @@ using SFML.System;
 
 namespace StadnardGameLib
 {
-    public class GameObjectNew
+    public class GameObjectNew<T> : IGameObject
     {
-        public Vector2f Position = new Vector2f(0, 0);
-        public Drawable? drawable;
-        public Transformable? transformable;
-        public string Tag = "Untagged";
-        public bool IsActive = true;
-        public bool IsVisible = true;
-        public bool IsCollidable = true;
-        public bool ToDestroy = false;
+        public Vector2f Position { get; set; } = new Vector2f(0, 0);
+        public Drawable? drawable { get; set; }
+        public Transformable? transformable { get; set; }
+        public string Tag { get; set; } = "Untagged";
+        public bool IsActive { get; set; } = true;
+        public bool IsVisible { get; set; } = true;
+        public bool IsCollidable { get; set; } = true;
+        public bool ToDestroy { get; set; } = false;
 
         public virtual FloatRect GetLocalBounds()
         {

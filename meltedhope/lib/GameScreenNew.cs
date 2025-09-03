@@ -7,8 +7,8 @@ namespace StadnardGameLib
     {
         public static GameScreenNew? Instance;
         public RenderWindow Window;
-        public List<GameObjectNew> GameObjects = [];
-        private List<GameObjectNew> CreationQueue = [];
+        public List<IGameObject> GameObjects = [];
+        private List<IGameObject> CreationQueue = [];
         public bool isPaused = false;
 
         public GameScreenNew(RenderWindow window)
@@ -18,7 +18,7 @@ namespace StadnardGameLib
             Instance = this;
             this.Window = window;
         }
-        public void AddGameObject(GameObjectNew obj)
+        public void AddGameObject(IGameObject obj)
         {
             CreationQueue.Add(obj);
         }
@@ -45,17 +45,12 @@ namespace StadnardGameLib
             }
         }
 
-        public T? GetFirst<T>() where T : GameObjectNew
-        {
-            return GameObjects.Find(gameObject => gameObject is T) as T;
-        }
-
-        public GameObjectNew? GetFirstByTag(string tag)
+        public IGameObject? GetFirstByTag(string tag)
         {
             return GameObjects.Find(gameObject => gameObject.Tag == tag);
         }
 
-        public GameObjectNew? CheckCollision(GameObjectNew obj)
+        public IGameObject? CheckCollision(IGameObject obj)
         {
             foreach (var gameObject in GameObjects)
             {
@@ -72,7 +67,7 @@ namespace StadnardGameLib
             return null;
         }
 
-        public GameObjectNew? CheckCollisionWhitelist(GameObjectNew obj, List<string> tags)
+        public IGameObject? CheckCollisionWhitelist(IGameObject obj, List<string> tags)
         {
             foreach (var gameObject in GameObjects)
             {
@@ -88,7 +83,7 @@ namespace StadnardGameLib
             return null;
         }
 
-        public GameObjectNew? CheckCollisionBlacklist(GameObjectNew obj, List<string> tags)
+        public IGameObject? CheckCollisionBlacklist(IGameObject obj, List<string> tags)
         {
             foreach (var gameObject in GameObjects)
             {

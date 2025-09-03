@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace meltedhope
 {
-    public class PlayerNew : GameObjectNew
+    public class PlayerNew : GameObjectNew<Sprite>
     {
         static readonly List<Texture> idleTextures =
         [
@@ -45,11 +45,21 @@ namespace meltedhope
             shadow.FillColor = new Color(0, 0, 0, 120);
             shadow.Origin = new Vector2f(shadow.Radius, shadow.Radius);
         }
+
         public PlayerNew(Vector2f position) : this(idleTextures[0])
         {
             this.Tag = "Player";
             // GameScreen.Instance?.AddGameObject(new Healthbar());
             this.Position = position;
+        }
+
+        public override FloatRect GetLocalBounds()
+        {
+            return localObj.GetLocalBounds();
+        }
+        public override FloatRect GetGlobalBounds()
+        {
+            return localObj.GetGlobalBounds();
         }
 
         public bool isMoving = false;
@@ -109,7 +119,7 @@ namespace meltedhope
             this.Position += direction * (speed * deltaTime);
             shadow.Position = new Vector2f(
                 transformable!.Position.X,
-                transformable!.Position.Y + this.GetGlobalBounds().Height / 2f - 3
+                transformable!.Position.Y + GetGlobalBounds().Height / 2f - 3
             );
         }
 
