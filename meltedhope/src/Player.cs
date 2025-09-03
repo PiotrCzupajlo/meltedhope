@@ -46,6 +46,9 @@ namespace meltedhope
         private float animationTimer = 0f;
         private float shootTimer = 0f;
         private float iFramesTimer = 0f;
+        private float damagefromburn = 0.001f;
+        private float burningcooldown = 1000000;
+        private float burningtimer = 0;
 
         public override void OnUpdate(RenderWindow window,float deltaTime)
         {
@@ -56,6 +59,17 @@ namespace meltedhope
             HandleMovment(deltaTime);
             HandleAnimation();
             HandleShooting();
+            burningdmg(deltaTime);
+
+        }
+        public void burningdmg(float deltatime) { 
+        this.health -= damagefromburn;
+            burningtimer += deltatime;
+            if (burningtimer >= burningcooldown)
+            {
+                this.health -= damagefromburn;
+                burningtimer = 0;
+            }
         }
 
         void HandleMovment(float deltaTime)
@@ -149,7 +163,9 @@ namespace meltedhope
         public void LevelUp()
         {
             lvl++;
+            XpBar.Instance?.OnUpdate();
             AbilitySelection();
+            GameScreen.Instance.isPaused = true;
 
         }
         public void AbilitySelection() { }

@@ -11,10 +11,13 @@ namespace meltedhope
 {
     public class XpBar : GameObject
     {
+
+        public static XpBar? Instance;
         private static readonly Texture baseTexture = new Texture("assets/art/border.png");
         private static readonly Texture bodyTexture = new Texture("assets/art/fill.png");
         private GameObject body;
         public XpBar():base(baseTexture) {
+            Instance = this;
             this.Position = new Vector2f(900, 900);
             this.body = new GameObject(bodyTexture, new Vector2f(758,890));
             body.Origin = new Vector2f(0, 0);

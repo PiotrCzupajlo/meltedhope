@@ -24,10 +24,13 @@ namespace StadnardGameLib
 
         public void HandleUpdate(RenderWindow window, float deltaTime)
         {
-            OnUpdate();
-            OnUpdate(window);
-            OnUpdate(deltaTime);
-            OnUpdate(window, deltaTime);
+            if (GameScreen.Instance.isPaused == false)
+            {
+                OnUpdate();
+                OnUpdate(window);
+                OnUpdate(deltaTime);
+                OnUpdate(window, deltaTime);
+            }
             if (IsVisible)
                 GameScreen.Instance?.Window.Draw(this);
         }

@@ -10,6 +10,7 @@ namespace StadnardGameLib
         public List<GameObject> GameObjects = [];
         private List<GameObject> CreationQueue = [];
         public EnemySpawningSystem enemySpawningSystem;
+        public bool isPaused = false;
 
         public GameScreen(RenderWindow window,EnemySpawningSystem enemySpawningSystem)
         {
