@@ -20,6 +20,9 @@ namespace meltedhope.src
             abilities.Add(new Double_Shoot_Ability());
             abilities.Add(new WaxRegenerationAbility());
             abilities.Add(new Bigger_Flame_Ability());
+            abilities.Add(new Bigger_Range_Ability());
+
+
         }
         public void Update(SFML.Graphics.RenderWindow window, float deltaTime)
         {
@@ -60,7 +63,7 @@ namespace meltedhope.src
                     else if (GameScreen.Instance.isPaused == true &&abilities.ElementAt(second).GetGlobalBounds().Contains(mouseWorldPos.X, mouseWorldPos.Y) )
                     {
                         Console.WriteLine("Ability 2 chosen");
-                        bool result = abilities.ElementAt(1).MakeAChange(player);
+                        bool result = abilities.ElementAt(second).MakeAChange(player);
                         if(result)
                             abilities.RemoveAt(second);
                         GameScreen.Instance.isPaused=false;

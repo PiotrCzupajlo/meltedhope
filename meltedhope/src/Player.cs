@@ -57,7 +57,7 @@ namespace meltedhope
         public float speed = 500f;
         public float shootCooldown = 0.5f;
         public float iFramesCooldown = 0.2f;
-
+        public float bulletrange = 700f;
         private float animationTimer = 0f;
         private float shootTimer = 0f;
         private float iFramesTimer = 0f;
@@ -154,9 +154,9 @@ namespace meltedhope
                 for (int i = 0; i < current_bullet_multiplyer; i++)
                 {
                     if(i%2==0)
-                        GameScreen.Instance?.AddGameObject(new Bullet(new Vector2f(this.Position.X - ((25 * i) - 25 * (i / 2)), this.Position.Y), direction, bullet_damage));
+                        GameScreen.Instance?.AddGameObject(new Bullet(new Vector2f(this.Position.X - ((25 * i) - 25 * (i / 2)), this.Position.Y), direction, bullet_damage,bulletrange));
                     else   
-                        GameScreen.Instance?.AddGameObject(new Bullet(new Vector2f(this.Position.X + ((25 * i) - 25 * (i / 2)), this.Position.Y), direction, bullet_damage));
+                        GameScreen.Instance?.AddGameObject(new Bullet(new Vector2f(this.Position.X + ((25 * i) - 25 * (i / 2)), this.Position.Y), direction, bullet_damage, bulletrange));
                 }
             }
             else
@@ -164,9 +164,9 @@ namespace meltedhope
                 for (int i = 0; i < current_bullet_multiplyer; i++)
                 {
                     if(i%2==0)
-                        GameScreen.Instance?.AddGameObject(new Bullet(new Vector2f(this.Position.X , this.Position.Y- ((25 * i) - 25 * (i / 2))), direction, bullet_damage));
+                        GameScreen.Instance?.AddGameObject(new Bullet(new Vector2f(this.Position.X , this.Position.Y- ((25 * i) - 25 * (i / 2))), direction, bullet_damage, bulletrange));
                     else
-                        GameScreen.Instance?.AddGameObject(new Bullet(new Vector2f(this.Position.X, this.Position.Y + ((25 * i) - 25 * (i / 2))), direction, bullet_damage));
+                        GameScreen.Instance?.AddGameObject(new Bullet(new Vector2f(this.Position.X, this.Position.Y + ((25 * i) - 25 * (i / 2))), direction, bullet_damage, bulletrange));
                 }
             }
         }
