@@ -19,6 +19,7 @@ namespace meltedhope
 
         public XpBar() : base(new Sprite(baseTexture))
         {
+            Obj!.Origin = new Vector2f(baseTexture.Size.X / 2f, baseTexture.Size.Y / 2f);
             body = new GameObject<Sprite>(new Sprite(bodyTexture));
             this.Position = new Vector2f(900, 900);
             body.Position = new Vector2f(758,890);

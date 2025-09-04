@@ -16,11 +16,11 @@ namespace meltedhope
 
         public BasicZombie(Vector2f position) : base(walkTextures, position, health: 5f, damage: 1f, speed: 100f,shadow_offset_x:15,shadow_offset_y:-3,dynamic_mirrored_offset:-2)
         {
-            this.Scale = new Vector2f(2f, 2f);
+            Obj!.Scale = new Vector2f(2f, 2f);
         }
         public override void OnUpdate()
         {
-            if (this.Scale == new Vector2f(-2, 2))
+            if (Obj!.Scale == new Vector2f(-2, 2))
             {
                 shadow.Position = new Vector2f(
                 this.Position.X + shadow_offset_x,
@@ -34,15 +34,12 @@ namespace meltedhope
             }
             base.OnUpdate();
         }
-        public override List<GameObject> OnDeletionCreateNewObj()
+        public override void OnDeletion()
         {
-            List<GameObject> gameObjects = new List<GameObject>();
-            Item old_wax = new Old_Wax(this.Position.X + 50, this.Position.Y);
-            gameObjects.Add(old_wax);
-            YellowXpStar yellowXpStar = new YellowXpStar(this.Position.X - 50, this.Position.Y);
-            gameObjects.Add(yellowXpStar);
-            return gameObjects;
-            //Drop the shit
+            GameScreen.Instance?.AddGameObject(new Old_Wax(this.Position.X + 50, this.Position.Y));
+
+            GameScreen.Instance?.AddGameObject(new YellowXpStar(this.Position.X - 50, this.Position.Y));
+            
         }
     }
 }

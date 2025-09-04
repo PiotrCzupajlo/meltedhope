@@ -22,9 +22,16 @@ namespace meltedhope
         public float shadow_offset_y;
         public float dynamic_mirrored_offset;
 
-        private Enemy(Texture texture, float shadow_offset_x, float shadow_offset_y, float dynamic_mirrored_offset) : base(new Sprite(texture))
+        public Enemy(List<Texture> walkTextures, Vector2f position , float health, float damage, float speed, float shadow_offset_x, float shadow_offset_y, float dynamic_mirrored_offset) : base(new Sprite(walkTextures[0]))
         {
+            this.walkTextures = walkTextures;
+            Position = position;
+            Obj!.Origin = new Vector2f(walkTextures[0].Size.X / 2f, walkTextures[0].Size.Y / 2f);
             this.Tag = "Enemy";
+            this.health = health;
+            this.damage = damage;
+            this.speed = speed;
+
             shadow = new EllipseShape(25f, new Vector2f(2f, 0.5f));
             shadow.FillColor = new Color(0, 0, 0, 120);
             shadow.Origin = new Vector2f(shadow.Radius, shadow.Radius);
@@ -32,12 +39,14 @@ namespace meltedhope
             this.shadow_offset_y = shadow_offset_y;
             this.dynamic_mirrored_offset = dynamic_mirrored_offset;
         }
-        public Enemy(List<Texture> walkTextures, Vector2f position , float health, float damage, float speed, float shadow_offset_x, float shadow_offset_y, float dynamic_mirrored_offset) : this(walkTextures[0], shadow_offset_x, shadow_offset_y, dynamic_mirrored_offset)
+
+        public override FloatRect GetLocalBounds()
         {
-            this.walkTextures = walkTextures;
-            this.health = health;
-            this.damage = damage;
-            this.speed = speed;
+            return Obj!.GetLocalBounds();
+        }
+        public override FloatRect GetGlobalBounds()
+        {
+            return Obj!.GetGlobalBounds();
         }
 
         private float animationTimer = 0f;

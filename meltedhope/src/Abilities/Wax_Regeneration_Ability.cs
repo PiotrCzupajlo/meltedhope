@@ -20,7 +20,7 @@ namespace meltedhope.src.Abilities
             player.damagefromburn -= 0.001f;
             counter++;
             if (counter <= max_level)
-                this.Texture = new SFML.Graphics.Texture($"assets/art/ds_card_{counter}.png");
+                Obj!.Texture = new SFML.Graphics.Texture($"assets/art/ds_card_{counter}.png");
             else
             {
                 result = true;

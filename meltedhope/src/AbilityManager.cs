@@ -1,17 +1,7 @@
 ﻿using StadnardGameLib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SFML.Graphics;
 using SFML.Window;
-using SFML.Graphics;
 using SFML.System;
-using SFML.Window;
-using SFML.Audio;
 using meltedhope.src.Abilities;
-using OpenTK.Graphics.OpenGL;
 
 namespace meltedhope.src
 {
@@ -46,8 +36,8 @@ namespace meltedhope.src
                 isChoosing = true;
             }
             Player player = GameScreen.Instance.GetFirstByTag("Player") as Player;
-            abilities.ElementAt(first).Position=new SFML.System.Vector2f(825, 350);
-            abilities.ElementAt(second).Position=new SFML.System.Vector2f(1100, 350);
+            abilities.ElementAt(first).Obj!.Position=new SFML.System.Vector2f(825, 350);
+            abilities.ElementAt(second).Obj!.Position=new SFML.System.Vector2f(1100, 350);
             window.Draw(abilities.ElementAt(first).Drawable);
             window.Draw(abilities.ElementAt(second).Drawable);
             window.MouseButtonPressed += (sender, e) =>

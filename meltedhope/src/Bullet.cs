@@ -22,6 +22,15 @@ namespace meltedhope
             this.damage = damage;
         }
 
+        public override FloatRect GetLocalBounds()
+        {
+            return Obj!.GetLocalBounds();
+        }
+        public override FloatRect GetGlobalBounds()
+        {
+            return Obj!.GetGlobalBounds();
+        }
+
         public override void OnUpdate(float deltaTime)
         {
             this.Position += direction * (speed * deltaTime);
