@@ -1,14 +1,7 @@
-﻿using OpenTK.Windowing.GraphicsLibraryFramework;
-using SFML.Graphics;
+﻿using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using StadnardGameLib;
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace meltedhope
 {
@@ -24,7 +17,6 @@ namespace meltedhope
             new Texture("assets/art/candle_move1.png"),
             new Texture("assets/art/candle_move2.png"),
         ];
-        public Sprite localObj;
 
         public float CurrentXp = 0;
         public float XpToNextLvL = 100;
@@ -34,12 +26,9 @@ namespace meltedhope
         public float bullet_speed = 1f;
         public float bullet_damage = 1f;
 
-        private PlayerNew(Texture texture)
+        private PlayerNew(Texture texture) : base(new Sprite(texture))
         {
-            localObj = new Sprite(texture);
-            localObj.Origin = new Vector2f(texture.Size.X / 2f, texture.Size.Y / 2f);
-            transformable = localObj;
-            drawable = localObj;
+            Obj!.Origin = new Vector2f(texture.Size.X / 2f, texture.Size.Y / 2f);
 
             shadow = new EllipseShape(20f, new Vector2f(2f, 0.5f));
             shadow.FillColor = new Color(0, 0, 0, 120);
@@ -55,11 +44,11 @@ namespace meltedhope
 
         public override FloatRect GetLocalBounds()
         {
-            return localObj.GetLocalBounds();
+            return Obj!.GetLocalBounds();
         }
         public override FloatRect GetGlobalBounds()
         {
-            return localObj.GetGlobalBounds();
+            return Obj!.GetGlobalBounds();
         }
 
         public bool isMoving = false;
@@ -111,15 +100,15 @@ namespace meltedhope
                 direction.X += 1;
 
             if (direction.X > 0)
-                localObj.Scale = new Vector2f(1, localObj.Scale.Y);
+                Obj!.Scale = new Vector2f(1, Obj.Scale.Y);
             if (direction.X < 0)
-                localObj.Scale = new Vector2f(-1, localObj.Scale.Y);
+                Obj!.Scale = new Vector2f(-1, Obj.Scale.Y);
 
             isMoving = direction.X != 0 || direction.Y != 0;
             this.Position += direction * (speed * deltaTime);
             shadow.Position = new Vector2f(
-                transformable!.Position.X,
-                transformable!.Position.Y + GetGlobalBounds().Height / 2f - 3
+                Position.X,
+                Position.Y + GetGlobalBounds().Height / 2f - 3
             );
         }
 
@@ -128,12 +117,12 @@ namespace meltedhope
             if (!isMoving)
             {
                 int frame = (int)(animationTimer * 2) % idleTextures.Count;
-                localObj.Texture = idleTextures[frame];
+                Obj!.Texture = idleTextures[frame];
             }
             else
             {
                 int frame = (int)(animationTimer * 7) % walkTextures.Count;
-                localObj.Texture = walkTextures[frame];
+                Obj!.Texture = walkTextures[frame];
             }
         }
 
@@ -190,6 +179,7 @@ namespace meltedhope
             this.health -= damage;
             iFramesTimer = iFramesCooldown;
         }
+
         public void IncreaseHealth(float heal)
         {
             if(heal+this.health<=10)
@@ -197,6 +187,7 @@ namespace meltedhope
             else
                 this.health = 10;
         }
+
         public void AddXp(float xp)
         {
             this.CurrentXp += xp;
@@ -206,6 +197,7 @@ namespace meltedhope
                 LevelUp();
             }
         }
+
         public void LevelUp()
         {
             lvl++;
@@ -213,11 +205,8 @@ namespace meltedhope
             XpBar.Instance?.OnUpdate();
             AbilitySelection();
             GameScreen.Instance!.isPaused = true;
-
         }
+
         public void AbilitySelection() { }
-
-
-
     }
 }

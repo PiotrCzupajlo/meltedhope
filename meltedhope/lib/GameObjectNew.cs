@@ -5,14 +5,25 @@ namespace StadnardGameLib
 {
     public class GameObjectNew<T> : IGameObject
     {
+        public T? Obj { get; set; }
         public Vector2f Position { get; set; } = new Vector2f(0, 0);
-        public Drawable? drawable { get; set; }
-        public Transformable? transformable { get; set; }
+        public Drawable? Drawable { get; set; }
+        public Transformable? Transformable { get; set; }
         public string Tag { get; set; } = "Untagged";
         public bool IsActive { get; set; } = true;
         public bool IsVisible { get; set; } = true;
         public bool IsCollidable { get; set; } = true;
         public bool ToDestroy { get; set; } = false;
+
+        public GameObjectNew() { }
+        public GameObjectNew(T obj)
+        {
+            Obj = obj;
+            if (obj is Drawable drawable)
+                Drawable = drawable;
+            if (obj is Transformable transformable)
+                Transformable = transformable;
+        }
 
         public virtual FloatRect GetLocalBounds()
         {
@@ -27,7 +38,7 @@ namespace StadnardGameLib
         public void HandleUpdate(RenderWindow window, float deltaTime)
         {
             if (!IsActive) return;
-            if (transformable != null) transformable.Position = Position;
+            if (Transformable != null) Transformable.Position = Position;
             if (GameScreenNew.Instance?.isPaused == false)
             {
                 OnUpdate();
@@ -35,8 +46,8 @@ namespace StadnardGameLib
                 OnUpdate(deltaTime);
                 OnUpdate(window, deltaTime);
             }
-            if (IsVisible && drawable != null)
-                GameScreenNew.Instance?.Window.Draw(drawable);
+            if (IsVisible && Drawable != null)
+                GameScreenNew.Instance?.Window.Draw(Drawable);
         }
 
         public void Destroy()

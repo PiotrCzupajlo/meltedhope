@@ -6,8 +6,8 @@ namespace StadnardGameLib
     public interface IGameObject
     {
         public Vector2f Position { get; set; }
-        public Drawable? drawable { get; set; }
-        public Transformable? transformable { get; set; }
+        public Drawable? Drawable { get; set; }
+        public Transformable? Transformable { get; set; }
         public string Tag { get; set; }
         public bool IsActive { get; set; }
         public bool IsVisible { get; set; }
