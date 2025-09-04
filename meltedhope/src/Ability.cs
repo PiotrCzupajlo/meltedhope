@@ -9,15 +9,13 @@ using StadnardGameLib;
 
 namespace meltedhope.src
 {
-    public class Ability: GameObject
+    public class Ability: GameObject<Sprite>
     {
         public int counter = 1;
         public int max_level = 5;
-        public Ability(Texture texture) :base(texture)
-        {
-        }
-        public virtual bool MakeAChange() {return false;
-        }
+        public Ability(Texture texture) :base(new Sprite()) { }
+
+        public virtual bool MakeAChange() { return false; }
         public virtual bool MakeAChange(Player player) { return false; }
     }
 }

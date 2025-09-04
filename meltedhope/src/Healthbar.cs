@@ -4,36 +4,39 @@ using StadnardGameLib;
 
 namespace meltedhope
 {
-    public class Healthbar : GameObject
+    public class Healthbar : GameObject<Sprite>
     {
         public static Healthbar? Instance;
         private static readonly Texture baseTexture = new Texture("assets/art/healthcandle.png");
         private static readonly Texture bodyTexture = new Texture("assets/art/body.png");
-        private GameObject body;
-        public Healthbar() : base(baseTexture)
+        private GameObject<Sprite> body;
+        private Healthbar(Texture texture) : base(new Sprite(texture))
+        {
+            Obj!.Origin = new Vector2f(texture.Size.X / 2f, texture.Size.Y / 2f);
+            this.body = new GameObject<Sprite>(new Sprite(bodyTexture));
+            GameScreen.Instance?.AddGameObject(body);
+            body.Obj!.Origin = new Vector2f(0, 0);
+        }
+        public Healthbar() : this(baseTexture)
         {
             Instance = this;
             this.Position = new Vector2f(1830, 500);
-            this.body = new GameObject(bodyTexture, this.Position);
-            body.Origin = new Vector2f(0, 0);
-            GameScreen.Instance?.AddGameObject(body);
         }
 
         public override void OnUpdate()
         {
-            var player = GameScreen.Instance?.GetFirst<Player>();
-            if (player == null)
+            if (GameScreen.Instance?.GetFirstByTag("Player") is not Player player)
                 return;
 
             float ratio = player.health / player.maxHealth;
             if (ratio < 0) ratio = 0;
             if (ratio > 1) ratio = 1;
 
-            this.body.Scale = new Vector2f(1, ratio);
+            this.body.Obj!.Scale = new Vector2f(1, ratio);
 
-            this.body.Position = new Vector2f(
+            body.Position = new Vector2f(
                 this.Position.X-45,
-                this.Position.Y + ((this.Texture.Size.Y * (1 - ratio) / 2)-43)
+                this.Position.Y + ((Obj!.Texture.Size.Y * (1 - ratio) / 2)-43)
             );
         }
     }

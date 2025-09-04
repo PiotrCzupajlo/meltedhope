@@ -2,23 +2,11 @@
 using SFML.System;
 using SFML.Window;
 using StadnardGameLib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace meltedhope
 {
-    public class Player : GameObject
+    public class Player : GameObject<Sprite>
     {
-        public float CurrentXp = 0;
-        public float XpToNextLvL = 100;
-        public float lvl = 1;
-        public EllipseShape shadow;
-        public int current_bullet_multiplyer = 1;
-        public float bullet_speed = 1f;
-        public float bullet_damage = 1f;
         static readonly List<Texture> idleTextures =
         [
             new Texture("assets/art/candle_idle.png"),
@@ -30,13 +18,37 @@ namespace meltedhope
             new Texture("assets/art/candle_move2.png"),
         ];
 
-        public Player(Vector2f position) : base(idleTextures[0], position)
+        public float CurrentXp = 0;
+        public float XpToNextLvL = 100;
+        public float lvl = 1;
+        public EllipseShape shadow;
+        public int current_bullet_multiplyer = 1;
+        public float bullet_speed = 1f;
+        public float bullet_damage = 1f;
+
+        private Player(Texture texture) : base(new Sprite(texture))
         {
-            this.Tag = "Player";
-            GameScreen.Instance?.AddGameObject(new Healthbar());
+            Obj!.Origin = new Vector2f(texture.Size.X / 2f, texture.Size.Y / 2f);
+
             shadow = new EllipseShape(20f, new Vector2f(2f, 0.5f));
             shadow.FillColor = new Color(0, 0, 0, 120);
             shadow.Origin = new Vector2f(shadow.Radius, shadow.Radius);
+        }
+
+        public Player(Vector2f position) : this(idleTextures[0])
+        {
+            this.Tag = "Player";
+            // GameScreen.Instance?.AddGameObject(new Healthbar());
+            this.Position = position;
+        }
+
+        public override FloatRect GetLocalBounds()
+        {
+            return Obj!.GetLocalBounds();
+        }
+        public override FloatRect GetGlobalBounds()
+        {
+            return Obj!.GetGlobalBounds();
         }
 
         public bool isMoving = false;
@@ -88,15 +100,16 @@ namespace meltedhope
                 direction.X += 1;
 
             if (direction.X > 0)
-                this.Scale = new Vector2f(1, Scale.Y);
+                Obj!.Scale = new Vector2f(1, Obj.Scale.Y);
             if (direction.X < 0)
-                this.Scale = new Vector2f(-1, Scale.Y);
+                Obj!.Scale = new Vector2f(-1, Obj.Scale.Y);
 
             isMoving = direction.X != 0 || direction.Y != 0;
             this.Position += direction * (speed * deltaTime);
             shadow.Position = new Vector2f(
-            this.Position.X,
-            (this.Position.Y + this.GetGlobalBounds().Height / 2f) - 3);
+                Position.X,
+                Position.Y + GetGlobalBounds().Height / 2f - 3
+            );
         }
 
         void HandleAnimation()
@@ -104,12 +117,12 @@ namespace meltedhope
             if (!isMoving)
             {
                 int frame = (int)(animationTimer * 2) % idleTextures.Count;
-                this.Texture = idleTextures[frame];
+                Obj!.Texture = idleTextures[frame];
             }
             else
             {
                 int frame = (int)(animationTimer * 7) % walkTextures.Count;
-                this.Texture = walkTextures[frame];
+                Obj!.Texture = walkTextures[frame];
             }
         }
 
@@ -166,6 +179,7 @@ namespace meltedhope
             this.health -= damage;
             iFramesTimer = iFramesCooldown;
         }
+
         public void IncreaseHealth(float heal)
         {
             if(heal+this.health<=10)
@@ -173,6 +187,7 @@ namespace meltedhope
             else
                 this.health = 10;
         }
+
         public void AddXp(float xp)
         {
             this.CurrentXp += xp;
@@ -182,18 +197,16 @@ namespace meltedhope
                 LevelUp();
             }
         }
+
         public void LevelUp()
         {
             lvl++;
             XpToNextLvL *= 1.5f;
             XpBar.Instance?.OnUpdate();
             AbilitySelection();
-            GameScreen.Instance.isPaused = true;
-
+            GameScreen.Instance!.isPaused = true;
         }
+
         public void AbilitySelection() { }
-
-
-
     }
 }

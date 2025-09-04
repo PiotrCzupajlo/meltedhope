@@ -8,15 +8,16 @@ using System.Threading.Tasks;
 
 namespace meltedhope.src
 {
-    public class EnemySpawningSystem:GameObject
+    public class EnemySpawningSystem:GameObject<Sprite>
     {
         public float spawntime;
         public float spawncooldown;
-        public EnemySpawningSystem()
+        public EnemySpawningSystem() : base(new Sprite())
         {
             spawntime = 0;
             spawncooldown = 5;
         }
+
         public override void OnUpdate(RenderWindow window, float deltaTime)
         {
             spawntime += deltaTime;
@@ -26,7 +27,8 @@ namespace meltedhope.src
                 spawntime = 0;
             }
         }
-        public void SpawnEnemy(GameObject enemy, RenderWindow window)
+
+        public void SpawnEnemy(IGameObject enemy, RenderWindow window)
         {
             float x, y;
             Random rand = new Random();

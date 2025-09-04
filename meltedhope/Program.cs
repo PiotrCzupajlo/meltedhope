@@ -21,7 +21,7 @@ namespace meltedhope
             Sprite background = new Sprite(new Texture("assets/art/background.png"));
 
             AbilityManager abilityManager = new AbilityManager();
-            var gameScreen = new GameScreenNew(window);
+            var gameScreen = new GameScreen(window);
             List<Item> items = new List<Item>();
             gameScreen.AddGameObject(new PlayerNew(new Vector2f(400, 300)));
             // gameScreen.AddGameObject(new Barrier(new Vector2f(0, -1)));

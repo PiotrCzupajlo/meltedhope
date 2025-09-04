@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace meltedhope
 {
-    public class Enemy : GameObject
+    public class Enemy : GameObject<Sprite>
     {
         public float health;
         public float damage;
@@ -22,19 +22,22 @@ namespace meltedhope
         public float shadow_offset_y;
         public float dynamic_mirrored_offset;
 
-        public Enemy(List<Texture> walkTextures, Vector2f position , float health, float damage, float speed, float shadow_offset_x, float shadow_offset_y, float dynamic_mirrored_offset) : base(walkTextures[0], position)
+        private Enemy(Texture texture, float shadow_offset_x, float shadow_offset_y, float dynamic_mirrored_offset) : base(new Sprite(texture))
         {
             this.Tag = "Enemy";
-            this.walkTextures = walkTextures;
-            this.health = health;
-            this.damage = damage;
-            this.speed = speed;
             shadow = new EllipseShape(25f, new Vector2f(2f, 0.5f));
             shadow.FillColor = new Color(0, 0, 0, 120);
             shadow.Origin = new Vector2f(shadow.Radius, shadow.Radius);
             this.shadow_offset_x = shadow_offset_x;
             this.shadow_offset_y = shadow_offset_y;
             this.dynamic_mirrored_offset = dynamic_mirrored_offset;
+        }
+        public Enemy(List<Texture> walkTextures, Vector2f position , float health, float damage, float speed, float shadow_offset_x, float shadow_offset_y, float dynamic_mirrored_offset) : this(walkTextures[0], shadow_offset_x, shadow_offset_y, dynamic_mirrored_offset)
+        {
+            this.walkTextures = walkTextures;
+            this.health = health;
+            this.damage = damage;
+            this.speed = speed;
         }
 
         private float animationTimer = 0f;
@@ -43,8 +46,7 @@ namespace meltedhope
         {
             window.Draw(shadow);
             animationTimer += deltaTime;
-            var player = GameScreen.Instance?.GetFirst<Player>();
-            if (player != null)
+            if (GameScreen.Instance?.GetFirstByTag("Player") is Player player)
                 GoToPlayer(player, deltaTime);
             HandleAnimation();
 
@@ -61,9 +63,9 @@ namespace meltedhope
             var direction = new Vector2f(deltaX / length, deltaY / length);
 
             if (direction.X > 0)
-                this.Scale = new Vector2f(Math.Abs(this.Scale.X), this.Scale.Y);
+                Obj!.Scale = new Vector2f(Math.Abs(Obj!.Scale.X), Obj!.Scale.Y);
             if (direction.X < 0)
-                this.Scale = new Vector2f(-Math.Abs(this.Scale.X), this.Scale.Y);
+                Obj!.Scale = new Vector2f(-Math.Abs(Obj!.Scale.X), Obj!.Scale.Y);
 
             if (length > 10)
                 this.Position += direction * (speed * deltaTime);
@@ -74,69 +76,12 @@ namespace meltedhope
         void HandleAnimation()
         {
             int frame = (int)(animationTimer * 3) % walkTextures.Count;
-            this.Texture = walkTextures[frame];
+            Obj!.Texture = walkTextures[frame];
         }
 
         public void TakeDamage(float damage)
         {
             this.health -= damage;
         }
-
-
-    //     public  bool Update(Player character)
-        //     {
-        //         tick++;
-        //         if (tick == 50)
-        //         {
-        //             tick = 0;
-        //             current_texture_id++;
-        //             if (current_texture_id >= animation.Count)
-        //                 current_texture_id = 0;
-        //             this.Texture = animation.ElementAt(current_texture_id);
-
-        //         }
-        //         if(attackcooldown>0)
-        //             attackcooldown--;
-        //         bool ischaracterdead = false;
-        //         UpdateCorners();
-        //         float deltaX = character.Position.X - Position.X;
-        //         float deltaY = character.Position.Y - Position.Y;
-        //         float length = (float)Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
-        //         if (length >10)
-        //         {
-        //             deltaX /= length;
-        //             if (deltaX > 0) {
-        //                 this.Scale = new Vector2f(2, 2);
-        //             }
-        //             else
-        //             {
-        //                     this.Scale = new Vector2f(-2, 2);
-        //             }
-        //             deltaY /= length;
-        //             Position = new Vector2f(Position.X + deltaX * Speed, Position.Y + deltaY * Speed);
-        //             if (this.Scale == new Vector2f(-2, 2))
-        //             {
-        //                 shadow.Position = new Vector2f(
-        //                 this.Position.X + shadow_offset_x,
-        //                 (this.Position.Y + this.GetGlobalBounds().Height / 2f) + shadow_offset_y);
-        //             }
-        //             else
-        //             {
-        //                 shadow.Position = new Vector2f(
-        //                 this.Position.X - shadow_offset_x+dynamic_mirrored_offset,
-        //                 (this.Position.Y + this.GetGlobalBounds().Height / 2f) + shadow_offset_y);
-        //             }
-        //         }
-        //         else
-        //         {
-        //             //atack
-        //             if (attackcooldown == 0)
-        //             {
-        //                 // ischaracterdead = character.healthdecrease(Damage);
-        //                 attackcooldown = 50;
-        //             }
-        //         }
-
-        //         return ischaracterdead;
     }
 }

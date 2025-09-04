@@ -48,8 +48,8 @@ namespace meltedhope.src
             Player player = GameScreen.Instance.GetFirstByTag("Player") as Player;
             abilities.ElementAt(first).Position=new SFML.System.Vector2f(825, 350);
             abilities.ElementAt(second).Position=new SFML.System.Vector2f(1100, 350);
-            window.Draw(abilities.ElementAt(first));
-            window.Draw(abilities.ElementAt(second));
+            window.Draw(abilities.ElementAt(first).Drawable);
+            window.Draw(abilities.ElementAt(second).Drawable);
             window.MouseButtonPressed += (sender, e) =>
             {
                 if (e.Button == Mouse.Button.Left)
