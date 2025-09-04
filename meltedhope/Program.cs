@@ -21,8 +21,7 @@ namespace meltedhope
             Sprite background = new Sprite(new Texture("assets/art/background.png"));
 
             AbilityManager abilityManager = new AbilityManager();
-            var gameScreen = new GameScreen(window,enemySpawningSystem,abilityManager);
-            List<Item> items = new List<Item>();
+            var gameScreen = new GameScreen(window);
             gameScreen.AddGameObject(new Player(new Vector2f(400, 300)));
             gameScreen.AddGameObject(new Barrier(new Vector2f(0, -1)));
             gameScreen.AddGameObject(new Barrier(new Vector2f(1, 0)));
@@ -31,7 +30,6 @@ namespace meltedhope
             gameScreen.AddGameObject(new BasicZombie(new Vector2f(800, 900)));
             gameScreen.AddGameObject(new XpBar());
             gameScreen.AddGameObject(new Healthbar());
-            gameScreen.AddListOfGameObjects(items.Cast<GameObject>().ToList());
             gameScreen.AddGameObject(enemySpawningSystem);
             Font arial = new Font("assets/fonts/arial.ttf");
             var Clock = new Clock();

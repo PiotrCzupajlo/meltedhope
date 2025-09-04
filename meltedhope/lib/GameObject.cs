@@ -3,36 +3,51 @@ using SFML.System;
 
 namespace StadnardGameLib
 {
-    public class GameObject : Sprite
+    public class GameObject<T> : IGameObject
     {
-        public string Tag = "Untagged";
-        public bool IsActive = true;
-        public bool IsVisible = true;
-        public bool IsCollidable = true;
-        public bool ToDestroy = false;
+        public T? Obj { get; set; }
+        public Vector2f Position { get; set; } = new Vector2f(0, 0);
+        public Drawable? Drawable { get; set; }
+        public Transformable? Transformable { get; set; }
+        public string Tag { get; set; } = "Untagged";
+        public bool IsActive { get; set; } = true;
+        public bool IsVisible { get; set; } = true;
+        public bool IsCollidable { get; set; } = true;
+        public bool ToDestroy { get; set; } = false;
+
         public GameObject() { }
-        public GameObject(Texture texture) : base(texture)
+        public GameObject(T obj)
         {
-            this.Origin = new Vector2f(texture.Size.X / 2f, texture.Size.Y / 2f);
+            Obj = obj;
+            if (obj is Drawable drawable)
+                Drawable = drawable;
+            if (obj is Transformable transformable)
+                Transformable = transformable;
         }
 
-        public GameObject(Texture texture, Vector2f position) : base(texture)
+        public virtual FloatRect GetLocalBounds()
         {
-            this.Position = position;
-            this.Origin = new Vector2f(texture.Size.X / 2f, texture.Size.Y / 2f);
+            return new FloatRect(0, 0, 0, 0);
+        }
+
+        public virtual FloatRect GetGlobalBounds()
+        {
+            return new FloatRect(0, 0, 0, 0);
         }
 
         public void HandleUpdate(RenderWindow window, float deltaTime)
         {
-            if (GameScreen.Instance.isPaused == false)
+            if (!IsActive) return;
+            if (Transformable != null) Transformable.Position = Position;
+            if (GameScreen.Instance?.isPaused == false)
             {
                 OnUpdate();
                 OnUpdate(window);
                 OnUpdate(deltaTime);
                 OnUpdate(window, deltaTime);
             }
-            if (IsVisible)
-                GameScreen.Instance?.Window.Draw(this);
+            if (IsVisible && Drawable != null)
+                GameScreen.Instance?.Window.Draw(Drawable);
         }
 
         public void Destroy()
@@ -45,6 +60,5 @@ namespace StadnardGameLib
         public virtual void OnUpdate(float deltaTime) { }
         public virtual void OnUpdate(RenderWindow window, float deltaTime) { }
         public virtual void OnDeletion() { }
-        public virtual List<GameObject> OnDeletionCreateNewObj() { return null; }
     }
 }
