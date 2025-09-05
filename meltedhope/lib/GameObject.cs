@@ -35,7 +35,7 @@ namespace StadnardGameLib
             return new FloatRect(0, 0, 0, 0);
         }
 
-        public void HandleUpdate(RenderWindow window, float deltaTime)
+        public void HandleUpdate(RenderWindow window, float deltaTime,float clampx, float clampy)
         {
             if (!IsActive) return;
             if (Transformable != null) Transformable.Position = Position;
@@ -45,6 +45,7 @@ namespace StadnardGameLib
                 OnUpdate(window);
                 OnUpdate(deltaTime);
                 OnUpdate(window, deltaTime);
+                OnUpdate(window, deltaTime, clampx,clampy);
             }
             if (IsVisible && Drawable != null)
                 GameScreen.Instance?.Window.Draw(Drawable);
@@ -59,6 +60,7 @@ namespace StadnardGameLib
         public virtual void OnUpdate(RenderWindow window) { }
         public virtual void OnUpdate(float deltaTime) { }
         public virtual void OnUpdate(RenderWindow window, float deltaTime) { }
+        public virtual void OnUpdate(RenderWindow window, float deltaTime, float clampx, float clampy) { }
         public virtual void OnDeletion() { }
     }
 }

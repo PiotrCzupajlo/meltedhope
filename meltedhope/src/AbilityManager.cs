@@ -39,8 +39,8 @@ namespace meltedhope.src
                 isChoosing = true;
             }
             Player player = GameScreen.Instance.GetFirstByTag("Player") as Player;
-            abilities.ElementAt(first).Obj!.Position=new SFML.System.Vector2f(825, 350);
-            abilities.ElementAt(second).Obj!.Position=new SFML.System.Vector2f(1100, 350);
+            abilities.ElementAt(first).Obj!.Position=new SFML.System.Vector2f(player.Position.X, player.Position.Y);
+            abilities.ElementAt(second).Obj!.Position=new SFML.System.Vector2f(player.Position.X+300, player.Position.Y);
             window.Draw(abilities.ElementAt(first).Drawable);
             window.Draw(abilities.ElementAt(second).Drawable);
             window.MouseButtonPressed += (sender, e) =>

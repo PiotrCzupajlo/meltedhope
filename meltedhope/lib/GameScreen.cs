@@ -22,12 +22,15 @@ namespace StadnardGameLib
         {
             CreationQueue.Add(obj);
         }
+        public void LoadFromQueue() {
 
-        public void Update(float deltaTime)
-        {
             foreach (var gameObject in CreationQueue)
                 GameObjects.Add(gameObject);
             CreationQueue.Clear();
+        }
+        public void Update(float deltaTime,float clampx,float clampy)
+        {
+
 
             for (int i = 0; i < GameObjects.Count; i++)
             {
@@ -41,7 +44,7 @@ namespace StadnardGameLib
             foreach (var gameObject in GameObjects)
             {
                 if (gameObject.IsActive)
-                    gameObject.HandleUpdate(Window, deltaTime);
+                    gameObject.HandleUpdate(Window, deltaTime,clampx,clampy);
             }
         }
 

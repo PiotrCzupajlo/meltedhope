@@ -22,28 +22,29 @@ namespace meltedhope
             Obj!.Origin = new Vector2f(baseTexture.Size.X / 2f, baseTexture.Size.Y / 2f);
             body = new GameObject<Sprite>(new Sprite(bodyTexture));
             this.Position = new Vector2f(900, 900);
-            body.Position = new Vector2f(758,890);
+            body.Position = new Vector2f(758, 890);
             body.Obj!.Origin = new Vector2f(0, 0);
             body.Obj!.Scale = new Vector2f(0.5f, 1);
             GameScreen.Instance?.AddGameObject(body);
             Instance = this;
         }
 
-        public override void OnUpdate()
+
+        public override void OnUpdate(RenderWindow window, float deltatime,float clampx, float clampy)
         {
             if (GameScreen.Instance?.GetFirstByTag("Player") is not Player player)
                 return;
-            this.Position = new Vector2f(player.Position.X, player.Position.Y + 300);
+            this.Position = new Vector2f(clampx, clampy + 300);
+
+            this.body.HandleUpdate(window, deltatime, clampx, clampy);
+            this.body.Position = new Vector2f(clampx - 142, clampy + 290);
             float ratio = (player.CurrentXp / player.XpToNextLvL)/2;
             if (ratio < 0) ratio = 0;
             if (ratio > 1) ratio = 0.5f;
 
             this.body.Obj!.Scale = new Vector2f(ratio, 1);
 
-            //this.body.Position = new Vector2f(
-            //    this.Position.X - 45,
-            //    this.Position.Y + ((this.Texture.Size.Y * (1 - ratio) / 2) - 43)
-            //);
+
         }
     }
 }

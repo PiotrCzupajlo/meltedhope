@@ -13,7 +13,7 @@ namespace StadnardGameLib
         public bool IsVisible { get; set; }
         public bool IsCollidable { get; set; }
         public bool ToDestroy { get; set; }
-        public void HandleUpdate(RenderWindow window, float deltaTime);
+        public void HandleUpdate(RenderWindow window, float deltaTime,float clampx,float clampy);
         public FloatRect GetLocalBounds();
         public FloatRect GetGlobalBounds();
 
@@ -21,6 +21,7 @@ namespace StadnardGameLib
         public void OnUpdate(RenderWindow window) { }
         public void OnUpdate(float deltaTime) { }
         public void OnUpdate(RenderWindow window, float deltaTime) { }
+        public void OnUpdate(RenderWindow window, float deltaTime,float clampx, float clampy) { }
         public void OnDeletion() { }
     }
 }

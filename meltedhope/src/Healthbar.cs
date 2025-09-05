@@ -23,12 +23,15 @@ namespace meltedhope
             this.Position = new Vector2f(1830, 500);
         }
 
-        public override void OnUpdate()
+        public override void OnUpdate(RenderWindow window, float deltatime, float clampx, float clampy)
         {
 
             if (GameScreen.Instance?.GetFirstByTag("Player") is not Player player)
                 return;
-            this.Position = new Vector2f(player.Position.X+ 850, player.Position.Y- 50);
+            this.Position = new Vector2f(clampx+ 850, clampy- 50);
+
+            this.body.HandleUpdate(window, deltatime, clampx, clampy);
+            this.body.Position = new Vector2f(clampx+ 850, clampy- 50);
 
             float ratio = player.health / player.maxHealth;
             if (ratio < 0) ratio = 0;
@@ -40,6 +43,7 @@ namespace meltedhope
                 this.Position.X-45,
                 this.Position.Y + ((Obj!.Texture.Size.Y * (1 - ratio) / 2)-43)
             );
+
         }
     }
 }

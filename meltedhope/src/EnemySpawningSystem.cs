@@ -18,17 +18,17 @@ namespace meltedhope.src
             spawncooldown = 5;
         }
 
-        public override void OnUpdate(RenderWindow window, float deltaTime)
+        public override void OnUpdate(RenderWindow window, float deltaTime,float clampx, float clampy)
         {
             spawntime += deltaTime;
             if (spawntime > spawncooldown)
             {
-                SpawnEnemy(new BasicZombie(new SFML.System.Vector2f(900,900)),window);
+                SpawnEnemy(new BasicZombie(new SFML.System.Vector2f(900,900)),window,clampx,clampy);
                 spawntime = 0;
             }
         }
 
-        public void SpawnEnemy(IGameObject enemy, RenderWindow window)
+        public void SpawnEnemy(IGameObject enemy, RenderWindow window,float clampx, float clampy)
         {
             float x, y;
             Random rand = new Random();
@@ -36,20 +36,20 @@ namespace meltedhope.src
             switch (side)
             {
                 case 0: // Top
-                    x = (float)rand.NextDouble() * window.Size.X;
-                    y = -50f;
+                    x = (float)rand.NextDouble() * window.Size.X+clampx;
+                    y = -50f+clampy;
                     break;
                 case 1: // Right
-                    x = window.Size.X + 50f;
-                    y = (float)rand.NextDouble() * window.Size.Y;
+                    x = window.Size.X + 50f+clampx;
+                    y = (float)rand.NextDouble() * window.Size.Y+clampy;
                     break;
                 case 2: // Bottom
-                    x = (float)rand.NextDouble() * window.Size.X;
-                    y = window.Size.Y + 50f;
+                    x = (float)rand.NextDouble() * window.Size.X+clampx;
+                    y = window.Size.Y + 50f+clampy;
                     break;
                 case 3: // Left
-                    x = -50f;
-                    y = (float)rand.NextDouble() * window.Size.Y;
+                    x = -50f+clampx;
+                    y = (float)rand.NextDouble() * window.Size.Y+clampy;
                     break;
                 default:
                     x = 0f;
