@@ -17,12 +17,19 @@ namespace meltedhope
         public float damage;
         public float speed;
         private readonly List<Texture> walkTextures;
+        private readonly List<Texture> walktextures_state1;
+        private readonly List<Texture> taking_damage_textuers;
         public EllipseShape shadow;
         public float shadow_offset_x;
         public float shadow_offset_y;
         public float dynamic_mirrored_offset;
-
-        public Enemy(List<Texture> walkTextures, Vector2f position , float health, float damage, float speed, float shadow_offset_x, float shadow_offset_y, float dynamic_mirrored_offset) : base(new Sprite(walkTextures[0]))
+        public int damagestate = 0;
+        public bool lock_animation_damage = false;
+        public float animationcooldown = 0.05f;
+        public float animation_counter = 0;
+        public int current_texture = 0;
+        public Vector2f knocback_direction=new Vector2f();
+        public Enemy(List<Texture> walkTextures,List<Texture> walk_damaged,List<Texture> taking_damage, Vector2f position , float health, float damage, float speed, float shadow_offset_x, float shadow_offset_y, float dynamic_mirrored_offset) : base(new Sprite(walkTextures[0]))
         {
             this.walkTextures = walkTextures;
             Position = position;
@@ -38,6 +45,8 @@ namespace meltedhope
             this.shadow_offset_x = shadow_offset_x;
             this.shadow_offset_y = shadow_offset_y;
             this.dynamic_mirrored_offset = dynamic_mirrored_offset;
+            this.walktextures_state1 = walk_damaged;
+            taking_damage_textuers = taking_damage;
         }
 
         public override FloatRect GetLocalBounds()
@@ -55,9 +64,16 @@ namespace meltedhope
         {
             window.Draw(shadow);
             animationTimer += deltaTime;
-            if (GameScreen.Instance?.GetFirstByTag("Player") is Player player)
-                GoToPlayer(player, deltaTime);
-            HandleAnimation();
+            if (lock_animation_damage == false)
+            {
+                if (GameScreen.Instance?.GetFirstByTag("Player") is Player player)
+                    GoToPlayer(player, deltaTime);
+            }
+            else
+            { 
+            this.Position += knocback_direction * (speed * deltaTime);
+            }
+            HandleAnimation(deltaTime);
 
             if (health <= 0)
                 this.Destroy();
@@ -82,15 +98,50 @@ namespace meltedhope
                 player.TakeDamage(damage);
         }
 
-        void HandleAnimation()
+        void HandleAnimation(float deltatime)
         {
-            int frame = (int)(animationTimer * 3) % walkTextures.Count;
-            Obj!.Texture = walkTextures[frame];
+            if (lock_animation_damage == false)
+            {
+                if (damagestate == 0)
+                {
+                    int frame = (int)(animationTimer * 3) % walkTextures.Count;
+                    Obj!.Texture = walkTextures[frame];
+                }
+                else
+                {
+                    int frame = (int)(animationTimer * 3) % walkTextures.Count;
+                    Obj!.Texture = walktextures_state1[frame];
+                }
+            }
+            else
+            {
+                
+                animation_counter += deltatime;
+                if (animation_counter > animationcooldown)
+                {
+                    current_texture++;
+                    animation_counter = 0;
+                }
+                int frame = current_texture;
+
+                
+                if (frame == taking_damage_textuers.Count)
+                {
+                    lock_animation_damage = false;
+                    current_texture = 0;
+                    frame--;
+                }
+                Obj!.Texture = taking_damage_textuers[frame];
+
+            }
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage,Vector2f knockback_direction)
         {
+            this.knocback_direction = knockback_direction;
+            lock_animation_damage = true;
             this.health -= damage;
+        
         }
     }
 }

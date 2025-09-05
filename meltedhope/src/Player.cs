@@ -157,6 +157,7 @@ namespace meltedhope
                         GameScreen.Instance?.AddGameObject(new Bullet(new Vector2f(this.Position.X - ((25 * i) - 25 * (i / 2)), this.Position.Y), direction, bullet_damage,bulletrange));
                     else   
                         GameScreen.Instance?.AddGameObject(new Bullet(new Vector2f(this.Position.X + ((25 * i) - 25 * (i / 2)), this.Position.Y), direction, bullet_damage, bulletrange));
+                    this.health -= 0.01f*bullet_damage;
                 }
             }
             else
@@ -167,6 +168,7 @@ namespace meltedhope
                         GameScreen.Instance?.AddGameObject(new Bullet(new Vector2f(this.Position.X , this.Position.Y- ((25 * i) - 25 * (i / 2))), direction, bullet_damage, bulletrange));
                     else
                         GameScreen.Instance?.AddGameObject(new Bullet(new Vector2f(this.Position.X, this.Position.Y + ((25 * i) - 25 * (i / 2))), direction, bullet_damage, bulletrange));
+                    this.health -= 0.01f*bullet_damage;
                 }
             }
         }

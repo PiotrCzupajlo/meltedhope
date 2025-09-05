@@ -15,7 +15,7 @@ namespace meltedhope.src
         public EnemySpawningSystem() : base(new Sprite())
         {
             spawntime = 0;
-            spawncooldown = 5;
+            spawncooldown = 2;
         }
 
         public override void OnUpdate(RenderWindow window, float deltaTime,float clampx, float clampy)
@@ -36,20 +36,20 @@ namespace meltedhope.src
             switch (side)
             {
                 case 0: // Top
-                    x = (float)rand.NextDouble() * window.Size.X+clampx;
-                    y = -50f+clampy;
+                    x = (float)rand.NextDouble() +clampx;
+                    y = -1000f+clampy;
                     break;
                 case 1: // Right
-                    x = window.Size.X + 50f+clampx;
-                    y = (float)rand.NextDouble() * window.Size.Y+clampy;
+                    x = window.Size.X + 1000f+clampx;
+                    y = (float)rand.NextDouble()+clampy;
                     break;
                 case 2: // Bottom
-                    x = (float)rand.NextDouble() * window.Size.X+clampx;
-                    y = window.Size.Y + 50f+clampy;
+                    x = (float)rand.NextDouble() +clampx;
+                    y = window.Size.Y + 1000f+clampy;
                     break;
                 case 3: // Left
-                    x = -50f+clampx;
-                    y = (float)rand.NextDouble() * window.Size.Y+clampy;
+                    x = -1000f+clampx;
+                    y = (float)rand.NextDouble()+clampy;
                     break;
                 default:
                     x = 0f;
