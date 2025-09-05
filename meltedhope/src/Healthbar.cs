@@ -25,8 +25,10 @@ namespace meltedhope
 
         public override void OnUpdate()
         {
+
             if (GameScreen.Instance?.GetFirstByTag("Player") is not Player player)
                 return;
+            this.Position = new Vector2f(player.Position.X+ 850, player.Position.Y- 50);
 
             float ratio = player.health / player.maxHealth;
             if (ratio < 0) ratio = 0;

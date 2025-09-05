@@ -18,19 +18,19 @@ namespace meltedhope
             window.SetFramerateLimit(144);
             window.Closed += (sender, e) => window.Close();
             EnemySpawningSystem enemySpawningSystem = new EnemySpawningSystem();
-            Sprite background = new Sprite(new Texture("assets/art/background.png"));
-
+            Sprite background = new Sprite(new Texture("assets/art/map.png"));
+            View view = new View(new FloatRect(0, 0, WindowWidth, WindowHeight));
+            
             AbilityManager abilityManager = new AbilityManager();
             var gameScreen = new GameScreen(window);
-            gameScreen.AddGameObject(new Player(new Vector2f(400, 300)));
-            gameScreen.AddGameObject(new Barrier(new Vector2f(0, -1)));
-            gameScreen.AddGameObject(new Barrier(new Vector2f(1, 0)));
-            gameScreen.AddGameObject(new Barrier(new Vector2f(0, 1)));
-            gameScreen.AddGameObject(new Barrier(new Vector2f(-1, 0)));
+            gameScreen.AddGameObject(new Player(new Vector2f(4000, 4000)));
             gameScreen.AddGameObject(new BasicZombie(new Vector2f(800, 900)));
             gameScreen.AddGameObject(new XpBar());
             gameScreen.AddGameObject(new Healthbar());
             gameScreen.AddGameObject(enemySpawningSystem);
+            Texture mapTex = new Texture("assets/art/map.png");
+            Sprite map = new Sprite(mapTex);
+            Vector2f mapSize = new Vector2f(mapTex.Size.X, mapTex.Size.Y);
             Font arial = new Font("assets/fonts/arial.ttf");
             var Clock = new Clock();
             while (window.IsOpen)
@@ -47,7 +47,12 @@ namespace meltedhope
                 if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
                     gameScreen.isPaused = false;
                 gameScreen.Update(deltaTime);
-
+                Vector2f halfView = view.Size / 2f;
+                Player player = gameScreen.GetFirstByTag("Player") as Player;
+                float clampedX = MathF.Max(halfView.X, MathF.Min(player.Position.X, mapSize.X - halfView.X));
+                float clampedY = MathF.Max(halfView.Y, MathF.Min(player.Position.Y, mapSize.Y - halfView.Y));
+                view.Center = new Vector2f(clampedX, clampedY);
+                window.SetView(view);
                 if (gameScreen.isPaused)
                 {
                     
@@ -56,12 +61,11 @@ namespace meltedhope
                     window.Draw(overlay);
                     abilityManager.Update(window,deltaTime);
 
-
                     Text pausedText = new Text("Choose your new ability", arial, 50);
                     pausedText.FillColor = Color.White;
                     FloatRect textRect = pausedText.GetLocalBounds();
                     pausedText.Origin = new Vector2f(textRect.Left + textRect.Width / 2.0f, textRect.Top + textRect.Height / 2.0f);
-                    pausedText.Position = new Vector2f(WindowWidth / 2.0f, WindowHeight / 2.0f);
+                    pausedText.Position = new Vector2f(player.Position.X-600, player.Position.Y-520);
                     window.Draw(pausedText);
                 }
                 Healthbar.Instance?.OnUpdate();

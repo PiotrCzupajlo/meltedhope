@@ -33,7 +33,7 @@ namespace meltedhope
         {
             if (GameScreen.Instance?.GetFirstByTag("Player") is not Player player)
                 return;
-
+            this.Position = new Vector2f(player.Position.X, player.Position.Y + 300);
             float ratio = (player.CurrentXp / player.XpToNextLvL)/2;
             if (ratio < 0) ratio = 0;
             if (ratio > 1) ratio = 0.5f;
