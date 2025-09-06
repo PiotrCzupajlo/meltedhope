@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using meltedhope.src;
+using SFML.Graphics;
 using SFML.System;
 using StadnardGameLib;
 
@@ -17,6 +18,8 @@ namespace meltedhope
         float animationchange = 0.1f;
         float animation_state = 1;
         float animation_counter = 0;
+        float particle_cooldown = 0.05f;
+        float particle_counter = 0;
         double offset;
 
         private Bullet(Texture texture) : base(new Sprite(texture))
@@ -56,6 +59,7 @@ namespace meltedhope
 
         public override void OnUpdate(float deltaTime)
         {
+            particle_counter += deltaTime;
             if (offset > 0)
                 offset -= deltaTime;
             else
@@ -77,9 +81,16 @@ namespace meltedhope
                     }
                 }
             }
-
+            if (this.speed <= 0)
+                this.Destroy();
             if (traveledDistance < range)
             {
+                if (particle_counter > particle_cooldown)
+                {
+                    Random random = new Random();
+                    GameScreen.Instance.AddGameObject(new Particle(this.Position, new Vector2f (random.NextSingle(),random.NextSingle()+ 1),0.25f));
+                    particle_counter = 0;
+                }
                 if (traveledDistance > range * 0.7f)
                 {
                     speed -= 8f;

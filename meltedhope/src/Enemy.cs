@@ -48,6 +48,7 @@ namespace meltedhope
             this.walktextures_state1 = walk_damaged;
             taking_damage_textuers = taking_damage;
         }
+        public Enemy() { }
 
         public override FloatRect GetLocalBounds()
         {

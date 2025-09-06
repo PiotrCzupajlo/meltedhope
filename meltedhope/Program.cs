@@ -5,6 +5,7 @@ using SFML.Audio;
 using meltedhope;
 using StadnardGameLib;
 using meltedhope.src;
+using meltedhope.src.Enemies;
 
 namespace meltedhope
 {
@@ -70,6 +71,7 @@ namespace meltedhope
                     pausedText.Position = new Vector2f(clampedX, clampedY);
                     window.Draw(pausedText);
                 }
+
                 window.SetView(view);
                 window.Display();
             }

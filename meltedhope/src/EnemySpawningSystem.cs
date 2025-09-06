@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using meltedhope.src.Enemies;
+using SFML.Graphics;
 using StadnardGameLib;
 using System;
 using System.Collections.Generic;
@@ -12,19 +13,29 @@ namespace meltedhope.src
     {
         public float spawntime;
         public float spawncooldown;
+        public float bossspawntime;
+        public float bosscooldown;
+
         public EnemySpawningSystem() : base(new Sprite())
         {
             spawntime = 0;
             spawncooldown = 2;
+            bosscooldown = 2;
         }
 
         public override void OnUpdate(RenderWindow window, float deltaTime,float clampx, float clampy)
         {
             spawntime += deltaTime;
+            bossspawntime+=deltaTime;
             if (spawntime > spawncooldown)
             {
                 SpawnEnemy(new BasicZombie(new SFML.System.Vector2f(900,900)),window,clampx,clampy);
                 spawntime = 0;
+            }
+            if (bosscooldown < bossspawntime)
+            {
+                SpawnEnemy(new FirstBoss(new SFML.System.Vector2f(900, 900)), window, clampx, clampy);
+                bossspawntime = 0;
             }
         }
 
@@ -36,20 +47,20 @@ namespace meltedhope.src
             switch (side)
             {
                 case 0: // Top
-                    x = (float)rand.NextDouble() +clampx;
+                    x = clampx;
                     y = -1000f+clampy;
                     break;
                 case 1: // Right
-                    x = window.Size.X + 1000f+clampx;
-                    y = (float)rand.NextDouble()+clampy;
+                    x = 1000f+clampx;
+                    y = clampy;
                     break;
                 case 2: // Bottom
-                    x = (float)rand.NextDouble() +clampx;
-                    y = window.Size.Y + 1000f+clampy;
+                    x = clampx;
+                    y =  1000f+clampy;
                     break;
                 case 3: // Left
                     x = -1000f+clampx;
-                    y = (float)rand.NextDouble()+clampy;
+                    y = clampy;
                     break;
                 default:
                     x = 0f;
