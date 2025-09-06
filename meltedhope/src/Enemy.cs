@@ -29,7 +29,7 @@ namespace meltedhope
         public float animation_counter = 0;
         public int current_texture = 0;
         public Vector2f knocback_direction=new Vector2f();
-        public Enemy(List<Texture> walkTextures,List<Texture> walk_damaged,List<Texture> taking_damage, Vector2f position , float health, float damage, float speed, float shadow_offset_x, float shadow_offset_y, float dynamic_mirrored_offset) : base(new Sprite(walkTextures[0]))
+        public Enemy(List<Texture> walkTextures,List<Texture> walk_damaged,List<Texture> taking_damage, Vector2f position , float health, float damage, float speed, float shadow_offset_x, float shadow_offset_y, float dynamic_mirrored_offset, float shadow_size) : base(new Sprite(walkTextures[0]))
         {
             this.walkTextures = walkTextures;
             Position = position;
@@ -39,7 +39,7 @@ namespace meltedhope
             this.damage = damage;
             this.speed = speed;
 
-            shadow = new EllipseShape(25f, new Vector2f(2f, 0.5f));
+            shadow = new EllipseShape(shadow_size, new Vector2f(2f, 0.5f));
             shadow.FillColor = new Color(0, 0, 0, 120);
             shadow.Origin = new Vector2f(shadow.Radius, shadow.Radius);
             this.shadow_offset_x = shadow_offset_x;

@@ -25,11 +25,11 @@ namespace meltedhope.src
             this.offset = random.NextDouble() * 0.1;
             Obj!.Origin = new Vector2f(texture.Size.X / 2f, texture.Size.Y / 2f);
         }
-        public Particle(Vector2f position, Vector2f direction,float lifetime) : this(baseTexture)
+        public Particle(Vector2f position, Vector2f direction,float lifetime, float speed) : this(baseTexture)
         {
             Position = position;
             this.direction = direction;
-
+            this.speed = speed;
             Obj.Texture = baseTexture;
             Obj.Scale = new Vector2f(3, 3);
             this.lifetime = lifetime;

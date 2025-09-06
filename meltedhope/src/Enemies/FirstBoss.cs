@@ -34,7 +34,7 @@ namespace meltedhope.src.Enemies
         public List<GameObject<Sprite>> bodys;
 
 
-        public FirstBoss(Vector2f position) : base(walkTextures, walkTexture_damaged, takingdamage, position, health: 5f, damage: 5f, speed: 200f, shadow_offset_x: 15, shadow_offset_y: -3, dynamic_mirrored_offset: -2)
+        public FirstBoss(Vector2f position) : base(walkTextures, walkTexture_damaged, takingdamage, position, health: 5f, damage: 5f, speed: 200f, shadow_offset_x: 15, shadow_offset_y: -3, dynamic_mirrored_offset: -2,100f)
         {
             Obj!.Scale = new Vector2f(2f, 2f);
             bodys= new List<GameObject<Sprite>>();

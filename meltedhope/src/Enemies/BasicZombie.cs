@@ -24,7 +24,7 @@ namespace meltedhope
     ];
 
 
-        public BasicZombie(Vector2f position) : base(walkTextures,walkTexture_damaged,takingdamage, position, health: 5f, damage: 1f, speed: 100f,shadow_offset_x:15,shadow_offset_y:-3,dynamic_mirrored_offset:-2)
+        public BasicZombie(Vector2f position) : base(walkTextures,walkTexture_damaged,takingdamage, position, health: 5f, damage: 1f, speed: 100f,shadow_offset_x:15,shadow_offset_y:-3,dynamic_mirrored_offset:-2,25f)
         {
             Obj!.Scale = new Vector2f(2f, 2f);
         }

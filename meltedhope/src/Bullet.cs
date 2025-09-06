@@ -2,6 +2,7 @@
 using SFML.Graphics;
 using SFML.System;
 using StadnardGameLib;
+using System;
 
 namespace meltedhope
 {
@@ -88,7 +89,7 @@ namespace meltedhope
                 if (particle_counter > particle_cooldown)
                 {
                     Random random = new Random();
-                    GameScreen.Instance.AddGameObject(new Particle(this.Position, new Vector2f (random.NextSingle(),random.NextSingle()+ 1),0.25f));
+                    GameScreen.Instance.AddGameObject(new Particle(this.Position, new Vector2f (random.NextSingle(),random.NextSingle()+ 1),0.25f, 70f));
                     particle_counter = 0;
                 }
                 if (traveledDistance > range * 0.7f)
@@ -116,6 +117,12 @@ namespace meltedhope
             }
             if (gameObject is Enemy enemy)
             {
+                Random random = new Random();
+                for (int i = 0; i < 5; i++)
+                {
+                    
+                    GameScreen.Instance.AddGameObject(new Particle(this.Position, new Vector2f(random.NextSingle()+this.direction.X, random.NextSingle() + this.direction.Y), 0.25f, this.speed/2));
+                }
                 this.Destroy();
                 enemy.TakeDamage(damage,direction);
             }

@@ -32,6 +32,10 @@ namespace meltedhope
             Vector2f mapSize = new Vector2f(mapTex.Size.X, mapTex.Size.Y);
             Font arial = new Font("assets/fonts/arial.ttf");
             var Clock = new Clock();
+            Text fpsText = new Text("", arial, 20);
+            fpsText.FillColor = Color.White;
+            fpsText.Position = new Vector2f(10, 10); // top-left corner
+
             while (window.IsOpen)
             {
                 window.Clear(new Color(25, 50, 75));
@@ -54,7 +58,10 @@ namespace meltedhope
                 healthbar.HandleUpdate(window, deltaTime, clampedX, clampedY);
                 xpBar.HandleUpdate(window, deltaTime, clampedX, clampedY);
                 view.Center = new Vector2f(clampedX, clampedY);
-                
+                float fps = 1f / deltaTime;
+                fpsText.Position = new Vector2f(clampedX - WindowWidth / 2 + 10, clampedY - WindowHeight / 2 + 10);
+                fpsText.DisplayedString = "FPS: " + ((int)fps).ToString();
+
                 if (gameScreen.isPaused)
                 {
                     
@@ -71,7 +78,7 @@ namespace meltedhope
                     pausedText.Position = new Vector2f(clampedX, clampedY);
                     window.Draw(pausedText);
                 }
-
+                window.Draw(fpsText);
                 window.SetView(view);
                 window.Display();
             }
