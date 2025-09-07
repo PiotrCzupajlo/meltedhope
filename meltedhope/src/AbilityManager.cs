@@ -22,6 +22,7 @@ namespace meltedhope.src
             abilities.Add(new Bigger_Flame_Ability());
             abilities.Add(new Bigger_Range_Ability());
             abilities.Add(new Faster_Reload_Ability());
+            abilities.Add(new Speed_Ability());
 
 
         }

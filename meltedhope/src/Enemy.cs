@@ -1,4 +1,5 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using meltedhope.src;
+using OpenTK.Graphics.OpenGL;
 using SFML.Graphics;
 using SFML.System;
 using StadnardGameLib;
@@ -29,6 +30,8 @@ namespace meltedhope
         public float animation_counter = 0;
         public int current_texture = 0;
         public Vector2f knocback_direction=new Vector2f();
+        private float walking_particle_cooldown = 0.1f;
+        private float walking_particle_timer = 0f;
         public Enemy(List<Texture> walkTextures,List<Texture> walk_damaged,List<Texture> taking_damage, Vector2f position , float health, float damage, float speed, float shadow_offset_x, float shadow_offset_y, float dynamic_mirrored_offset, float shadow_size) : base(new Sprite(walkTextures[0]))
         {
             this.walkTextures = walkTextures;
@@ -94,7 +97,26 @@ namespace meltedhope
                 Obj!.Scale = new Vector2f(-Math.Abs(Obj!.Scale.X), Obj!.Scale.Y);
 
             if (length > 10)
+            {
+                
                 this.Position += direction * (speed * deltaTime);
+                walking_particle_timer += deltaTime;
+                if (walking_particle_timer > walking_particle_cooldown)
+                {
+                    walking_particle_timer = 0;
+                    Random random = new Random();
+                    for (int i = 0; i < 2; i++)
+                    {
+                        if (i < 1)
+                            GameScreen.Instance.AddGameObject(new Ground_Particle(new Vector2f(this.Position.X + random.Next(30, 51), this.Position.Y + 80), new Vector2f(random.NextSingle() + 1, random.NextSingle()), 0.2f, 100f, new Vector2f(3, 3)));
+                        else
+                        {
+                            GameScreen.Instance.AddGameObject(new Ground_Particle(new Vector2f(this.Position.X - random.Next(30, 51), this.Position.Y + 80), new Vector2f(random.NextSingle() - 1, random.NextSingle()), 0.2f, 100f, new Vector2f(-3, 3)));
+
+                        }
+                    }
+                }
+            }
             else
                 player.TakeDamage(damage);
         }

@@ -1,4 +1,6 @@
-﻿using SFML.Graphics;
+﻿using meltedhope.src;
+using OpenTK.Windowing.Desktop;
+using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using StadnardGameLib;
@@ -64,6 +66,9 @@ namespace meltedhope
         public float damagefromburn = 0.001f;
         private float burningcooldown = 1000000;
         private float burningtimer = 0;
+        private float walking_particle_cooldown = 0.05f;
+        private float walking_particle_timer = 0f;
+
 
         public override void OnUpdate(RenderWindow window,float deltaTime)
         {
@@ -71,7 +76,7 @@ namespace meltedhope
             animationTimer += deltaTime;
             shootTimer += deltaTime;
             window.Draw(shadow);
-            HandleMovment(deltaTime);
+            HandleMovment(window, deltaTime);
             HandleAnimation();
             HandleShooting();
             burningdmg(deltaTime);
@@ -87,7 +92,7 @@ namespace meltedhope
             }
         }
 
-        void HandleMovment(float deltaTime)
+        void HandleMovment(RenderWindow window, float deltaTime)
         {
             var direction = new Vector2f(0, 0);
             if (Keyboard.IsKeyPressed(Keyboard.Key.W))
@@ -110,6 +115,24 @@ namespace meltedhope
                 Position.X,
                 Position.Y + GetGlobalBounds().Height / 2f - 3
             );
+            walking_particle_timer += deltaTime;
+            if (walking_particle_timer>walking_particle_cooldown && isMoving==true)
+            {
+                Random random = new Random();
+                for (int i = 0; i < 4; i++)
+                {
+                    if (i < 2)
+                        GameScreen.Instance.AddGameObject(new Ground_Particle(new Vector2f(this.Position.X + random.Next(30, 51), this.Position.Y + 60), new Vector2f(random.NextSingle()+1, random.NextSingle()), 0.05f, 200f,new Vector2f(3,3)));
+                    else
+                    {
+                        GameScreen.Instance.AddGameObject(new Ground_Particle(new Vector2f(this.Position.X - random.Next(30, 51), this.Position.Y + 60), new Vector2f(random.NextSingle()-1, random.NextSingle() ), 0.05f, 200f, new Vector2f(-3,3)));
+                        
+                    }
+                }
+                walking_particle_timer = 0;
+
+            }
+
         }
 
         void HandleAnimation()

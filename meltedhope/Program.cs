@@ -59,7 +59,7 @@ namespace meltedhope
                 xpBar.HandleUpdate(window, deltaTime, clampedX, clampedY);
                 view.Center = new Vector2f(clampedX, clampedY);
                 float fps = 1f / deltaTime;
-                fpsText.Position = new Vector2f(clampedX - WindowWidth / 2 + 10, clampedY - WindowHeight / 2 + 10);
+                
                 fpsText.DisplayedString = "FPS: " + ((int)fps).ToString();
 
                 if (gameScreen.isPaused)
@@ -79,6 +79,7 @@ namespace meltedhope
                     window.Draw(pausedText);
                 }
                 window.Draw(fpsText);
+                fpsText.Position = new Vector2f(clampedX - WindowWidth / 2 + 10, clampedY - WindowHeight / 2 + 10);
                 window.SetView(view);
                 window.Display();
             }

@@ -15,7 +15,7 @@ namespace meltedhope.src
         public float spawncooldown;
         public float bossspawntime;
         public float bosscooldown;
-
+        public int counter = 0;
         public EnemySpawningSystem() : base(new Sprite())
         {
             spawntime = 0;
@@ -27,15 +27,17 @@ namespace meltedhope.src
         {
             spawntime += deltaTime;
             bossspawntime+=deltaTime;
+            
             if (spawntime > spawncooldown)
             {
                 SpawnEnemy(new BasicZombie(new SFML.System.Vector2f(900,900)),window,clampx,clampy);
                 spawntime = 0;
             }
-            if (bosscooldown < bossspawntime)
+            if (bosscooldown < bossspawntime && counter==0)
             {
                 SpawnEnemy(new FirstBoss(new SFML.System.Vector2f(900, 900)), window, clampx, clampy);
                 bossspawntime = 0;
+                counter = 1;
             }
         }
 
