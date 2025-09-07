@@ -24,12 +24,13 @@ namespace meltedhope
     ];
 
 
-        public BasicZombie(Vector2f position) : base(walkTextures,walkTexture_damaged,takingdamage, position, health: 5f, damage: 1f, speed: 100f,shadow_offset_x:15,shadow_offset_y:-3,dynamic_mirrored_offset:-2,25f)
+        public BasicZombie(Vector2f position) : base(walkTextures,walkTexture_damaged,takingdamage, position, health: 5f, damage: 1f, speed: 100f,shadow_offset_x:15,shadow_offset_y:-3,dynamic_mirrored_offset:-2,25f,10,80,0,0, 100,170)
         {
             Obj!.Scale = new Vector2f(2f, 2f);
         }
         public override void OnUpdate()
         {
+            
             if (health != 5f)
             { 
             if(health<3)
@@ -37,7 +38,7 @@ namespace meltedhope
                 else
                     damagestate = 1;
             }
-
+            base.OnUpdate();
             if (Obj!.Scale == new Vector2f(-2, 2))
             {
                 shadow.Position = new Vector2f(
@@ -49,8 +50,9 @@ namespace meltedhope
                 shadow.Position = new Vector2f(
                 this.Position.X - shadow_offset_x + dynamic_mirrored_offset,
                 (this.Position.Y + this.GetGlobalBounds().Height / 2f) + shadow_offset_y);
+                this.hitbox.Position = new Vector2f(this.Position.X - hitbox_offset_x + dynamic_mirrored_offset, this.Position.Y + hitbox_offset_y);
             }
-            base.OnUpdate();
+            
         }
         public override void OnDeletion()
         {

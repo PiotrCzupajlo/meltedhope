@@ -45,23 +45,16 @@ namespace meltedhope.src.Enemies
         public float jump_animation_counter = 0;
         public float jumpframes = 0;
         public float target_y=0;
-        public FirstBoss(Vector2f position) : base(walkTextures, walkTexture_damaged, takingdamage, position, health: 5f, damage: 5f, speed: 200f, shadow_offset_x: 15, shadow_offset_y: -3, dynamic_mirrored_offset: -2,100f)
+        
+        public FirstBoss(Vector2f position) : base(walkTextures, walkTexture_damaged, takingdamage, position, health: 5f, damage: 5f, speed: 200f, shadow_offset_x: 15, shadow_offset_y: -3, dynamic_mirrored_offset: -2,100f,80,200,50,100,400,400)
         {
             Obj!.Scale = new Vector2f(2f, 2f);
             bodys= new List<GameObject<Sprite>>();
             bodys.Add(new GameObject<Sprite>(new Sprite(additional_elements[0])));
-            
+
         }
         public override void OnUpdate(RenderWindow window, float deltatime)
         {
-
-            FloatRect bounds = this.Obj.GetGlobalBounds();
-            RectangleShape border = new RectangleShape(new Vector2f(bounds.Width, bounds.Height));
-            border.Position = new Vector2f(bounds.Left, bounds.Top);
-            border.FillColor = Color.Transparent;   // no fill, just border
-            border.OutlineThickness = 2f;           // border thickness
-            border.OutlineColor = Color.Red;        // border color
-            window.Draw(border);
             jumpcounter += deltatime;
             if (jumpcounter > jumpcooldown)
             {
@@ -82,14 +75,14 @@ namespace meltedhope.src.Enemies
                 shadow.Position = new Vector2f(
                 this.Position.X + shadow_offset_x,
                 (this.Position.Y + this.GetGlobalBounds().Height / 2f) + shadow_offset_y);
-                bodys.ElementAt(0).Position = new Vector2f(this.Position.X + 40, this.Position.Y - 180);
+                bodys.ElementAt(0).Position = new Vector2f(this.Position.X + 20, this.Position.Y - 230);
             }
             else
             {
                 shadow.Position = new Vector2f(
                 this.Position.X - shadow_offset_x + dynamic_mirrored_offset,
                 (this.Position.Y + this.GetGlobalBounds().Height / 2f) + shadow_offset_y);
-                bodys.ElementAt(0).Position = new Vector2f(this.Position.X - 37, this.Position.Y - 180);
+                bodys.ElementAt(0).Position = new Vector2f(this.Position.X - 20, this.Position.Y - 230);
             }
             if (lock_jump_animation == false)
             {
@@ -98,6 +91,18 @@ namespace meltedhope.src.Enemies
             }
             else {
                 jump_animation_counter += deltatime*2;
+                if (jump_animation_counter < 1.5f)
+                { 
+                window.Draw(shadow);
+
+                }
+                if (jump_animation_counter > 4)
+                {
+                    shadow.Position = new Vector2f(
+                    this.Position.X + shadow_offset_x,
+                    (this.target_y + this.GetGlobalBounds().Height / 2f) + shadow_offset_y);
+                    window.Draw(shadow);
+                }
                 if (jump_animation_counter > 0.5 && jumpframes == 0)
                 {
                     this.Obj.Texture = jumptextures.ElementAt(0);
@@ -118,6 +123,7 @@ namespace meltedhope.src.Enemies
                     Player gameObject = GameScreen.Instance?.CheckCollisionWhitelist(this, ["Player"]) as Player;
                     if (gameObject != null)
                         gameObject.TakeDamage(damage);
+                    target_y = this.Position.Y;
                 }
                 else if (jump_animation_counter > 4 && jumpframes == 3)
                 {
@@ -153,7 +159,7 @@ namespace meltedhope.src.Enemies
                     if (gameObject != null)
                         gameObject.TakeDamage(damage);
                 }
-                else if (jump_animation_counter > 7 && jumpframes == 5)
+                else if (jump_animation_counter > 6.5f && jumpframes == 5)
                 {
                     this.Obj.Texture = jumptextures.ElementAt(0);
                     jumpframes = 0;

@@ -8,6 +8,8 @@ namespace StadnardGameLib
         public static GameScreen? Instance;
         public RenderWindow Window;
         public List<IGameObject> GameObjects = [];
+        public List<IGameObject> lessimportant = [];
+        public List<IGameObject> moreimportant = [];
         private List<IGameObject> CreationQueue = [];
         public bool isPaused = false;
 
@@ -28,6 +30,14 @@ namespace StadnardGameLib
                 GameObjects.Add(gameObject);
             CreationQueue.Clear();
         }
+        public void AddLessImportant(IGameObject obj)
+        {
+            lessimportant.Add(obj);
+        }
+        public void AddMoreImportant(IGameObject obj)
+        {
+            moreimportant.Add(obj);
+        }
         public void Update(float deltaTime,float clampx,float clampy)
         {
 
@@ -41,10 +51,39 @@ namespace StadnardGameLib
                     i--;
                 }
             }
+            for(int i=0;i<lessimportant.Count;i++)
+            {
+                if (lessimportant[i].ToDestroy)
+                {
+                    lessimportant[i].OnDeletion();
+                    lessimportant.RemoveAt(i);
+                    i--;
+                }
+            }
+            for (int i = 0; i < moreimportant.Count; i++)
+            {
+                if (moreimportant[i].ToDestroy)
+                {
+                    moreimportant[i].OnDeletion();
+                    moreimportant.RemoveAt(i);
+                    i--;
+                }
+            }
+            foreach (var gameobject in lessimportant)
+            { 
+            if(gameobject.IsActive)
+                    gameobject.HandleUpdate(Window, deltaTime, clampx, clampy);
+            }
             foreach (var gameObject in GameObjects)
             {
                 if (gameObject.IsActive)
                     gameObject.HandleUpdate(Window, deltaTime,clampx,clampy);
+            }
+            foreach (var gameobject in moreimportant)
+            {
+                if (gameobject.IsActive)
+                    gameobject.HandleUpdate(Window, deltaTime, clampx, clampy);
+
             }
         }
 

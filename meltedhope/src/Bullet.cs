@@ -117,14 +117,17 @@ namespace meltedhope
             }
             if (gameObject is Enemy enemy)
             {
-                Random random = new Random();
-                for (int i = 0; i < 5; i++)
+                if (this.GetGlobalBounds().Intersects(enemy.hitbox.GetGlobalBounds()))
                 {
-                    
-                    GameScreen.Instance.AddGameObject(new Particle(this.Position, new Vector2f(random.NextSingle()+this.direction.X, random.NextSingle() + this.direction.Y), 0.25f, this.speed/2));
+                    Random random = new Random();
+                    for (int i = 0; i < 5; i++)
+                    {
+
+                        GameScreen.Instance.AddGameObject(new Particle(this.Position, new Vector2f(random.NextSingle() + this.direction.X, random.NextSingle() + this.direction.Y), 0.25f, this.speed / 2));
+                    }
+                    this.Destroy();
+                    enemy.TakeDamage(damage, direction);
                 }
-                this.Destroy();
-                enemy.TakeDamage(damage,direction);
             }
         }
     }
