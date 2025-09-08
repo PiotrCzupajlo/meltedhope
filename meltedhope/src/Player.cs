@@ -21,6 +21,17 @@ namespace meltedhope
             new Texture("assets/art/candle_new5.png"),
             new Texture("assets/art/candle_new6.png"),
         ];
+        static readonly List<Texture> idle_fire = [
+                        new Texture("assets/art/player_fire1.png"),
+            new Texture("assets/art/player_fire2.png"),
+            new Texture("assets/art/player_fire3.png"),
+            new Texture("assets/art/player_fire4.png"),
+            ];
+        static readonly List<Texture> fire_textures =
+        [
+            new Texture("assets/art/player_fire6.png"),
+            new Texture("assets/art/player_fire5.png"),   
+        ];
 
         public float CurrentXp = 0;
         public float XpToNextLvL = 100;
@@ -29,6 +40,7 @@ namespace meltedhope
         public int current_bullet_multiplyer = 1;
         public float bullet_speed = 1f;
         public float bullet_damage = 1f;
+        public GameObject<Sprite> fire_on_top;
 
         private Player(Texture texture) : base(new Sprite(texture))
         {
@@ -38,6 +50,9 @@ namespace meltedhope
             shadow.FillColor = new Color(0, 0, 0, 120);
             shadow.Origin = new Vector2f(shadow.Radius, shadow.Radius);
             this.Obj.Scale = new Vector2f(5, 5);
+            fire_on_top = new GameObject<Sprite>(new Sprite(idle_fire[0]));
+
+            GameScreen.Instance.AddMoreImportant(fire_on_top);
         }
 
         public Player(Vector2f position) : this(idleTextures[0])
@@ -71,18 +86,33 @@ namespace meltedhope
         private float burningtimer = 0;
         private float walking_particle_cooldown = 0.05f;
         private float walking_particle_timer = 0f;
+        public bool locked_cooldown_animation = false;
+        public float fire_animation = 0f;
+        public float fire_animation_cooldown = 0.1f;
+        public float mirror_offset = 50;
 
 
         public override void OnUpdate(RenderWindow window,float deltaTime)
         {
+
             if (iFramesTimer > 0) iFramesTimer -= deltaTime;
             animationTimer += deltaTime;
             shootTimer += deltaTime;
             window.Draw(shadow);
             HandleMovment(window, deltaTime);
-            HandleAnimation();
+            HandleAnimation(deltaTime);
             HandleShooting();
             burningdmg(deltaTime);
+            int direction_indicator = -1;
+            if (this.Obj.Scale.X < 0)
+            {
+                direction_indicator = 1;
+                fire_on_top.Position = new Vector2f(this.Position.X +5, this.Position.Y - 90);
+            }
+            else
+            {
+                fire_on_top.Position = new Vector2f(this.Position.X - 37, this.Position.Y - 90);
+            }
 
         }
         public void burningdmg(float deltatime) { 
@@ -138,7 +168,7 @@ namespace meltedhope
 
         }
 
-        void HandleAnimation()
+        void HandleAnimation(float deltatime)
         {
             if (!isMoving)
             {
@@ -150,6 +180,33 @@ namespace meltedhope
                 int frame = (int)(animationTimer * 7) % walkTextures.Count;
                 Obj!.Texture = walkTextures[frame];
             }
+            if (locked_cooldown_animation)
+            {
+                if (shootTimer < shootCooldown)
+                {
+                    locked_cooldown_animation = false;
+                    this.Obj.Texture = idle_fire[0];
+                }
+                else if (shootTimer > (shootCooldown / 2))
+                {
+
+                    this.Obj.Texture = fire_textures[1];
+                }
+                       
+
+            }
+            else {
+                fire_animation += deltatime;
+                if (fire_animation > fire_animation_cooldown)
+                {
+                    fire_animation = 0;
+                    int frame = (int)(animationTimer * 10) % idle_fire.Count;
+                    fire_on_top.Obj.Texture = idle_fire[frame];
+                }
+                
+
+            }
+            
         }
 
         Vector2f GetShootingDirection()
@@ -197,6 +254,10 @@ namespace meltedhope
                     this.health -= 0.01f*bullet_damage;
                 }
             }
+            this.fire_on_top.Obj.Texture = fire_textures[0];
+            this.locked_cooldown_animation = true;
+
+
         }
 
         public void TakeDamage(float damage)
