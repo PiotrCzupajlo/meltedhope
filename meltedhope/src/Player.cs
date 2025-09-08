@@ -11,13 +11,15 @@ namespace meltedhope
     {
         static readonly List<Texture> idleTextures =
         [
-            new Texture("assets/art/candle_idle.png"),
-            new Texture("assets/art/candle_idle2.png"),
+            new Texture("assets/art/candle_new1.png"),
+            new Texture("assets/art/candle_new2.png"),
         ];
         static readonly List<Texture> walkTextures =
         [
-            new Texture("assets/art/candle_move1.png"),
-            new Texture("assets/art/candle_move2.png"),
+            new Texture("assets/art/candle_new3.png"),
+            new Texture("assets/art/candle_new4.png"),
+            new Texture("assets/art/candle_new5.png"),
+            new Texture("assets/art/candle_new6.png"),
         ];
 
         public float CurrentXp = 0;
@@ -35,6 +37,7 @@ namespace meltedhope
             shadow = new EllipseShape(20f, new Vector2f(2f, 0.5f));
             shadow.FillColor = new Color(0, 0, 0, 120);
             shadow.Origin = new Vector2f(shadow.Radius, shadow.Radius);
+            this.Obj.Scale = new Vector2f(5, 5);
         }
 
         public Player(Vector2f position) : this(idleTextures[0])
@@ -105,9 +108,9 @@ namespace meltedhope
                 direction.X += 1;
 
             if (direction.X > 0)
-                Obj!.Scale = new Vector2f(1, Obj.Scale.Y);
+                Obj!.Scale = new Vector2f(-5, Obj.Scale.Y);
             if (direction.X < 0)
-                Obj!.Scale = new Vector2f(-1, Obj.Scale.Y);
+                Obj!.Scale = new Vector2f(5, Obj.Scale.Y);
 
             isMoving = direction.X != 0 || direction.Y != 0;
             this.Position += direction * (speed * deltaTime);

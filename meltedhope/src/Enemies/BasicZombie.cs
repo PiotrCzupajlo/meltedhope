@@ -11,22 +11,31 @@ namespace meltedhope
     {
         static readonly List<Texture> walkTextures =
         [
-            new Texture("assets/art/candle_enemy_1.png"),
-            new Texture("assets/art/candle_enemy_2.png"),
+            new Texture("assets/art/enemy_new_1.png"),
+            new Texture("assets/art/enemy_new_4.png"),
+            new Texture("assets/art/enemy_new_5.png"),
+            new Texture("assets/art/enemy_new_2.png"),
+            new Texture("assets/art/enemy_new_3.png"),
         ];
         static readonly List<Texture> walkTexture_damaged = [
-            new Texture("assets/art/candle_enemy_damaged_1.png"),
-            new Texture("assets/art/candle_enemy_damaged_2.png")
+            new Texture("assets/art/enemy_new_1.png"),
+            new Texture("assets/art/enemy_new_4.png"),
+            new Texture("assets/art/enemy_new_5.png"),
+            new Texture("assets/art/enemy_new_2.png"),
+            new Texture("assets/art/enemy_new_3.png"),
             ];
         static readonly List<Texture> takingdamage = [
-    new Texture("assets/art/candle_enemy_taking_1.png"),
-            new Texture("assets/art/candle_enemy_taking_2.png")
+    new Texture("assets/art/enemy_new_8.png"),
+    new Texture("assets/art/enemy_new_7.png"),
+    new Texture("assets/art/enemy_new_6.png")
+
+
     ];
 
 
-        public BasicZombie(Vector2f position) : base(walkTextures,walkTexture_damaged,takingdamage, position, health: 5f, damage: 1f, speed: 100f,shadow_offset_x:15,shadow_offset_y:-3,dynamic_mirrored_offset:-2,25f,10,80,0,0, 100,170)
+        public BasicZombie(Vector2f position) : base(walkTextures,walkTexture_damaged,takingdamage, position, health: 10f, damage: 1f, speed: 50f,shadow_offset_x:15,shadow_offset_y:-3,dynamic_mirrored_offset:-20,25f,10,80,0,-100, 100,170)
         {
-            Obj!.Scale = new Vector2f(2f, 2f);
+            Obj!.Scale = new Vector2f(6f, 6f);
         }
         public override void OnUpdate()
         {
@@ -38,21 +47,24 @@ namespace meltedhope
                 else
                     damagestate = 1;
             }
-            base.OnUpdate();
-            if (Obj!.Scale == new Vector2f(-2, 2))
+            
+            if (Obj!.Scale == new Vector2f(-6, 6))
             {
                 shadow.Position = new Vector2f(
                 this.Position.X + shadow_offset_x,
                 (this.Position.Y + this.GetGlobalBounds().Height / 2f) + shadow_offset_y);
+                this.hitbox.Position = new Vector2f(this.Position.X - hitbox_offset_x + dynamic_mirrored_offset, this.Position.Y + hitbox_offset_y);
             }
             else
             {
                 shadow.Position = new Vector2f(
                 this.Position.X - shadow_offset_x + dynamic_mirrored_offset,
                 (this.Position.Y + this.GetGlobalBounds().Height / 2f) + shadow_offset_y);
-                this.hitbox.Position = new Vector2f(this.Position.X - hitbox_offset_x + dynamic_mirrored_offset, this.Position.Y + hitbox_offset_y);
+                this.hitbox.Position = new Vector2f(this.Position.X-100  , this.Position.Y + hitbox_offset_y);
             }
-            
+            changed_hitbox_position = true;
+            base.OnUpdate();
+
         }
         public override void OnDeletion()
         {

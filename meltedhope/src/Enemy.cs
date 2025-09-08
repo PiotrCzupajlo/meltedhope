@@ -37,6 +37,7 @@ namespace meltedhope
         public RectangleShape hitbox;
         public float hitbox_offset_x { get; set; }
         public float hitbox_offset_y { get; set; }
+        public bool changed_hitbox_position = false;
         public Enemy(List<Texture> walkTextures,List<Texture> walk_damaged,List<Texture> taking_damage, Vector2f position , float health, float damage, float speed, float shadow_offset_x, float shadow_offset_y, float dynamic_mirrored_offset, float shadow_size, int ground_particle_x, int ground_particle_y,float hitbox_offsex_x, float hitbox_offset_y, float hitbox_width, float hitbox_height) : base(new Sprite(walkTextures[0]))
         {
             this.walkTextures = walkTextures;
@@ -77,9 +78,11 @@ namespace meltedhope
         public override void OnUpdate(RenderWindow window,float deltaTime)
         {
             FloatRect bounds = this.Obj.GetGlobalBounds();
-            hitbox.Position = new Vector2f(bounds.Left + hitbox_offset_x, bounds.Top + hitbox_offset_y);
+            if(changed_hitbox_position==false)
+                hitbox.Position = new Vector2f(bounds.Left + hitbox_offset_x, bounds.Top + hitbox_offset_y);
             window.Draw(shadow);
             //window.Draw(hitbox);
+            changed_hitbox_position = false;
             animationTimer += deltaTime;
             if (lock_animation_damage == false)
             {
@@ -138,9 +141,9 @@ namespace meltedhope
         {
             if (lock_animation_damage == false)
             {
-                if (damagestate == 0)
+                if (damagestate == 1)
                 {
-                    int frame = (int)(animationTimer * 3) % walkTextures.Count;
+                    int frame = (int)(animationTimer * 5) % walkTextures.Count;
                     Obj!.Texture = walkTextures[frame];
                 }
                 else
