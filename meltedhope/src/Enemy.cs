@@ -35,6 +35,10 @@ namespace meltedhope
         private int ground_particle_x;
         private int ground_particle_y;
         public RectangleShape hitbox;
+        public bool attacking_player=false;
+        public float counter_after_attack = 0;
+        public float animation_after_attack = 0.1f;
+        public int attack_animation_frame = 0;
         public float hitbox_offset_x { get; set; }
         public float hitbox_offset_y { get; set; }
         public bool changed_hitbox_position = false;
@@ -114,7 +118,7 @@ namespace meltedhope
 
             if (length > 10)
             {
-                
+
                 this.Position += direction * (speed * deltaTime);
                 walking_particle_timer += deltaTime;
                 if (walking_particle_timer > walking_particle_cooldown)
@@ -124,7 +128,7 @@ namespace meltedhope
                     for (int i = 0; i < 2; i++)
                     {
                         if (i < 1)
-                            GameScreen.Instance.AddLessImportant(new Ground_Particle(new Vector2f(this.Position.X + random.Next(this.ground_particle_x, this.ground_particle_x+ 51), this.Position.Y + this.ground_particle_y), new Vector2f(random.NextSingle() + 1, random.NextSingle()), 0.2f, 100f, new Vector2f(3, 3)));
+                            GameScreen.Instance.AddLessImportant(new Ground_Particle(new Vector2f(this.Position.X + random.Next(this.ground_particle_x, this.ground_particle_x + 51), this.Position.Y + this.ground_particle_y), new Vector2f(random.NextSingle() + 1, random.NextSingle()), 0.2f, 100f, new Vector2f(3, 3)));
                         else
                         {
                             GameScreen.Instance.AddLessImportant(new Ground_Particle(new Vector2f(this.Position.X - random.Next(this.ground_particle_x, this.ground_particle_x + 51), this.Position.Y + this.ground_particle_y), new Vector2f(random.NextSingle() - 1, random.NextSingle()), 0.2f, 100f, new Vector2f(-3, 3)));
@@ -134,44 +138,50 @@ namespace meltedhope
                 }
             }
             else
+            {
                 player.TakeDamage(damage);
+                attacking_player = true;
+            }
         }
 
         void HandleAnimation(float deltatime)
         {
-            if (lock_animation_damage == false)
+            if (attacking_player == false)
             {
-                if (damagestate == 1)
+                if (lock_animation_damage == false)
                 {
-                    int frame = (int)(animationTimer * 5) % walkTextures.Count;
-                    Obj!.Texture = walkTextures[frame];
+                    if (damagestate == 1)
+                    {
+                        int frame = (int)(animationTimer * 5) % walkTextures.Count;
+                        Obj!.Texture = walkTextures[frame];
+                    }
+                    else
+                    {
+                        int frame = (int)(animationTimer * 3) % walkTextures.Count;
+                        Obj!.Texture = walktextures_state1[frame];
+                    }
                 }
                 else
                 {
-                    int frame = (int)(animationTimer * 3) % walkTextures.Count;
-                    Obj!.Texture = walktextures_state1[frame];
-                }
-            }
-            else
-            {
-                
-                animation_counter += deltatime;
-                if (animation_counter > animationcooldown)
-                {
-                    current_texture++;
-                    animation_counter = 0;
-                }
-                int frame = current_texture;
 
-                
-                if (frame == taking_damage_textuers.Count)
-                {
-                    lock_animation_damage = false;
-                    current_texture = 0;
-                    frame--;
-                }
-                Obj!.Texture = taking_damage_textuers[frame];
+                    animation_counter += deltatime;
+                    if (animation_counter > animationcooldown)
+                    {
+                        current_texture++;
+                        animation_counter = 0;
+                    }
+                    int frame = current_texture;
 
+
+                    if (frame == taking_damage_textuers.Count)
+                    {
+                        lock_animation_damage = false;
+                        current_texture = 0;
+                        frame--;
+                    }
+                    Obj!.Texture = taking_damage_textuers[frame];
+
+                }
             }
         }
 

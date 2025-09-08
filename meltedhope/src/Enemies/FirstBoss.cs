@@ -200,9 +200,9 @@ namespace meltedhope.src.Enemies
             {
                 body.ToDestroy = true;
             }
-            GameScreen.Instance?.AddGameObject(new Old_Wax(this.Position.X + 50, this.Position.Y));
+            GameScreen.Instance?.AddLessImportant(new Old_Wax(this.Position.X + 50, this.Position.Y));
 
-            GameScreen.Instance?.AddGameObject(new YellowXpStar(this.Position.X - 50, this.Position.Y));
+            GameScreen.Instance?.AddLessImportant(new YellowXpStar(this.Position.X - 50, this.Position.Y));
 
         }
     }
