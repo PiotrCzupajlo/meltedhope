@@ -45,12 +45,16 @@ namespace meltedhope.src.Enemies
         public float jump_animation_counter = 0;
         public float jumpframes = 0;
         public float target_y=0;
+        public Vector2f normal_shadow_scale;
+        public float max_height_of_jump = 0;
+        
         
         public FirstBoss(Vector2f position) : base(walkTextures, walkTexture_damaged, takingdamage, position, health: 5f, damage: 5f, speed: 200f, shadow_offset_x: 15, shadow_offset_y: -3, dynamic_mirrored_offset: -2,100f,80,200,50,100,400,400)
         {
             Obj!.Scale = new Vector2f(2f, 2f);
             bodys= new List<GameObject<Sprite>>();
             bodys.Add(new GameObject<Sprite>(new Sprite(additional_elements[0])));
+            normal_shadow_scale = this.shadow.Scale;
 
         }
         public override void OnUpdate(RenderWindow window, float deltatime)
@@ -101,6 +105,15 @@ namespace meltedhope.src.Enemies
                     shadow.Position = new Vector2f(
                     this.Position.X + shadow_offset_x,
                     (this.target_y + this.GetGlobalBounds().Height / 2f) + shadow_offset_y);
+                    float difference = target_y - this.Position.Y;
+                    if (difference < 10)
+                        this.shadow.Scale = normal_shadow_scale;
+                    else
+                    { 
+                    float result = difference / max_height_of_jump;
+                    float multiplyer = 1 - result;
+                        this.shadow.Scale = new Vector2f(normal_shadow_scale.X * multiplyer, normal_shadow_scale.Y * multiplyer);
+                    }
                     window.Draw(shadow);
                 }
                 if (jump_animation_counter > 0.5 && jumpframes == 0)
@@ -129,6 +142,7 @@ namespace meltedhope.src.Enemies
                 {
                     if (GameScreen.Instance?.GetFirstByTag("Player") is Player player)
                         jump(player, deltatime);
+                    max_height_of_jump = target_y - this.Position.Y;
                     fall(deltatime);
                     jumpframes = 4;
                     Player gameObject = GameScreen.Instance?.CheckCollisionWhitelist(this, ["Player"]) as Player;
