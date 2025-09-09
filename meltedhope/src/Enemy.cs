@@ -42,12 +42,14 @@ namespace meltedhope
         public float hitbox_offset_x { get; set; }
         public float hitbox_offset_y { get; set; }
         public bool changed_hitbox_position = false;
+        public float maxHealth = 0;
         public Enemy(List<Texture> walkTextures,List<Texture> walk_damaged,List<Texture> taking_damage, Vector2f position , float health, float damage, float speed, float shadow_offset_x, float shadow_offset_y, float dynamic_mirrored_offset, float shadow_size, int ground_particle_x, int ground_particle_y,float hitbox_offsex_x, float hitbox_offset_y, float hitbox_width, float hitbox_height) : base(new Sprite(walkTextures[0]))
         {
             this.walkTextures = walkTextures;
             Position = position;
             Obj!.Origin = new Vector2f(walkTextures[0].Size.X / 2f, walkTextures[0].Size.Y / 2f);
             this.Tag = "Enemy";
+            this.maxHealth = health;
             this.health = health;
             this.damage = damage;
             this.speed = speed;
@@ -190,7 +192,8 @@ namespace meltedhope
             this.knocback_direction = knockback_direction;
             lock_animation_damage = true;
             this.health -= damage;
-        
+            this.damagestate = 2;
+
         }
     }
 }

@@ -65,6 +65,7 @@ namespace meltedhope.src.Enemies
             bodys= new List<GameObject<Sprite>>();
             bodys.Add(new GameObject<Sprite>(new Sprite(additional_elements[0])));
             normal_shadow_scale = this.shadow.Scale;
+            this.Tag = "Boss";
 
         }
         public override void OnUpdate(RenderWindow window, float deltatime)

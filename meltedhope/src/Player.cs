@@ -185,12 +185,12 @@ namespace meltedhope
                 if (shootTimer < shootCooldown)
                 {
                     locked_cooldown_animation = false;
-                    this.Obj.Texture = idle_fire[0];
+                    this.fire_on_top.Obj.Texture = idle_fire[0];
                 }
                 else if (shootTimer > (shootCooldown / 2))
                 {
 
-                    this.Obj.Texture = fire_textures[1];
+                    this.fire_on_top.Obj.Texture = fire_textures[1];
                 }
                        
 

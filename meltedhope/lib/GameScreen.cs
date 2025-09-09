@@ -1,3 +1,4 @@
+using meltedhope;
 using meltedhope.src;
 using SFML.Graphics;
 
@@ -11,7 +12,9 @@ namespace StadnardGameLib
         public List<IGameObject> lessimportant = [];
         public List<IGameObject> moreimportant = [];
         private List<IGameObject> CreationQueue = [];
+        public Boss_Healthbar? boss_Healthbar;
         public bool isPaused = false;
+        public bool activeBoss = false;
 
         public GameScreen(RenderWindow window)
         {
@@ -19,6 +22,7 @@ namespace StadnardGameLib
                 throw new Exception("Only one instance of GameScreen is allowed.");
             Instance = this;
             this.Window = window;
+            this.boss_Healthbar = new Boss_Healthbar();
         }
         public void AddGameObject(IGameObject obj)
         {
@@ -69,6 +73,7 @@ namespace StadnardGameLib
                     i--;
                 }
             }
+
             foreach (var gameobject in lessimportant)
             { 
             if(gameobject.IsActive)
@@ -84,6 +89,10 @@ namespace StadnardGameLib
                 if (gameobject.IsActive)
                     gameobject.HandleUpdate(Window, deltaTime, clampx, clampy);
 
+            }
+            if (activeBoss)
+            {
+                boss_Healthbar.HandleUpdate(Window, deltaTime, clampx, clampy);
             }
         }
 

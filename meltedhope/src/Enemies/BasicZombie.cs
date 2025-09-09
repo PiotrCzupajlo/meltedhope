@@ -32,9 +32,9 @@ namespace meltedhope
             
             ];
         static readonly List<Texture> takingdamage = [
-    new Texture("assets/art/enemy_new_8.png"),
-    new Texture("assets/art/enemy_new_7.png"),
-    new Texture("assets/art/enemy_new_6.png")
+    new Texture("assets/art/enemy_new_11.png"),
+    new Texture("assets/art/enemy_new_10.png"),
+    new Texture("assets/art/enemy_new_9.png")
 
 
     ];
