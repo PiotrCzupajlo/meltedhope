@@ -150,14 +150,14 @@ namespace meltedhope
             {
                 if (lock_animation_damage == false)
                 {
-                    if (damagestate == 1)
+                    if (damagestate == 1 || damagestate==0)
                     {
-                        int frame = (int)(animationTimer * 5) % walkTextures.Count;
+                        int frame = (int)(animationTimer * 10) % walkTextures.Count;
                         Obj!.Texture = walkTextures[frame];
                     }
                     else
                     {
-                        int frame = (int)(animationTimer * 3) % walkTextures.Count;
+                        int frame = (int)(animationTimer * 3) % walktextures_state1.Count;
                         Obj!.Texture = walktextures_state1[frame];
                     }
                 }

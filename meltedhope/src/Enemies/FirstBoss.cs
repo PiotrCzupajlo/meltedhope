@@ -12,31 +12,41 @@ namespace meltedhope.src.Enemies
 {
     public class FirstBoss:Enemy
     {
-        public static Texture Texture = new SFML.Graphics.Texture("assets/art/first_boss_new_1.png");
+        public static Texture Texture = new Texture("assets/art/first_boss_drawed/boss1.png");
         public readonly List<Texture> additional_elements
         = new List<Texture>()
         {
             new Texture("assets/art/boss_flame_1.png")
         };
         static readonly List<Texture> jumptextures = [
-            new Texture("assets/art/first_boss_new_jump_1.png"),
-            new Texture("assets/art/first_boss_new_jump_2.png"),
-            new Texture("assets/art/first_boss_new_jump_3.png")
+                    new Texture("assets/art/first_boss_drawed/boss1.png"),
+                    new Texture("assets/art/first_boss_drawed/boss2.png"),
+                    new Texture("assets/art/first_boss_drawed/boss3.png")
 
 
             ];
         static readonly List<Texture> walkTextures =
                 [
-                    new Texture("assets/art/first_boss_new_1.png"),
-            new Texture("assets/art/first_boss_new_1.png"),
+                    new Texture("assets/art/first_boss_drawed/boss1.png"),
+                    new Texture("assets/art/first_boss_drawed/boss2.png"),
+                    new Texture("assets/art/first_boss_drawed/boss3.png"),
+                    new Texture("assets/art/first_boss_drawed/boss4.png"),
+                    new Texture("assets/art/first_boss_drawed/boss5.png"),
+                    new Texture("assets/art/first_boss_drawed/boss6.png"),
+                    new Texture("assets/art/first_boss_drawed/boss7.png"),
+                    new Texture("assets/art/first_boss_drawed/boss8.png"),
+                    new Texture("assets/art/first_boss_drawed/boss9.png"),
+                    new Texture("assets/art/first_boss_drawed/boss10.png"),
+                    new Texture("assets/art/first_boss_drawed/boss11.png"),
+                    new Texture("assets/art/first_boss_drawed/boss12.png")
         ];
         static readonly List<Texture> walkTexture_damaged = [
-            new Texture("assets/art/first_boss_new_1.png"),
-            new Texture("assets/art/first_boss_new_1.png")
+            new Texture("assets/art/first_boss_drawed/boss1.png"),
+            new Texture("assets/art/first_boss_drawed/boss1.png")
             ];
         static readonly List<Texture> takingdamage = [
-        new Texture("assets/art/first_boss_new_1.png"),
-            new Texture("assets/art/first_boss_new_1.png")
+        new Texture("assets/art/first_boss_drawed/boss1.png"),
+        new Texture("assets/art/first_boss_drawed/boss1.png")
         ];
         public List<GameObject<Sprite>> bodys;
         public float jumpcooldown = 10f;
@@ -51,7 +61,7 @@ namespace meltedhope.src.Enemies
         
         public FirstBoss(Vector2f position) : base(walkTextures, walkTexture_damaged, takingdamage, position, health: 5f, damage: 5f, speed: 200f, shadow_offset_x: 15, shadow_offset_y: -3, dynamic_mirrored_offset: -2,100f,80,200,50,100,400,400)
         {
-            Obj!.Scale = new Vector2f(2f, 2f);
+            Obj!.Scale = new Vector2f(4f, 4f);
             bodys= new List<GameObject<Sprite>>();
             bodys.Add(new GameObject<Sprite>(new Sprite(additional_elements[0])));
             normal_shadow_scale = this.shadow.Scale;
@@ -74,19 +84,19 @@ namespace meltedhope.src.Enemies
                     damagestate = 1;
             }
 
-            if (Obj!.Scale == new Vector2f(-2, 2))
+            if (Obj!.Scale == new Vector2f(-4, 4))
             {
                 shadow.Position = new Vector2f(
                 this.Position.X + shadow_offset_x,
                 (this.Position.Y + this.GetGlobalBounds().Height / 2f) + shadow_offset_y);
-                bodys.ElementAt(0).Position = new Vector2f(this.Position.X + 20, this.Position.Y - 230);
+                bodys.ElementAt(0).Position = new Vector2f(this.Position.X + 20, this.Position.Y - 430);
             }
             else
             {
                 shadow.Position = new Vector2f(
                 this.Position.X - shadow_offset_x + dynamic_mirrored_offset,
                 (this.Position.Y + this.GetGlobalBounds().Height / 2f) + shadow_offset_y);
-                bodys.ElementAt(0).Position = new Vector2f(this.Position.X - 20, this.Position.Y - 230);
+                bodys.ElementAt(0).Position = new Vector2f(this.Position.X - 20, this.Position.Y - 430);
             }
             if (lock_jump_animation == false)
             {
