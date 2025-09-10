@@ -13,6 +13,10 @@ namespace meltedhope.src
     public class Particle:GameObject<Sprite>
     {
         private static readonly Texture baseTexture = new Texture("assets/art/particle.png");
+        private static readonly Texture enemyTexture = new Texture("assets/art/particle2.png");
+
+
+
         Vector2f direction;
         float speed = 70f;
         float lifetime = 0.5f;
@@ -25,12 +29,15 @@ namespace meltedhope.src
             this.offset = random.NextDouble() * 0.1;
             Obj!.Origin = new Vector2f(texture.Size.X / 2f, texture.Size.Y / 2f);
         }
-        public Particle(Vector2f position, Vector2f direction,float lifetime, float speed) : this(baseTexture)
+        public Particle(Vector2f position, Vector2f direction,float lifetime, float speed,bool team) : this(baseTexture)
         {
             Position = position;
             this.direction = direction;
             this.speed = speed;
-            Obj.Texture = baseTexture;
+            if (team==true)
+                Obj.Texture = baseTexture;
+            else
+                Obj.Texture = enemyTexture;
             Obj.Scale = new Vector2f(3, 3);
             this.lifetime = lifetime;
         }

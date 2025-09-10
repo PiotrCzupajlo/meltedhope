@@ -43,17 +43,18 @@ namespace meltedhope
         public float hitbox_offset_y { get; set; }
         public bool changed_hitbox_position = false;
         public float maxHealth = 0;
+        public bool canmove = true;
         public Enemy(List<Texture> walkTextures,List<Texture> walk_damaged,List<Texture> taking_damage, Vector2f position , float health, float damage, float speed, float shadow_offset_x, float shadow_offset_y, float dynamic_mirrored_offset, float shadow_size, int ground_particle_x, int ground_particle_y,float hitbox_offsex_x, float hitbox_offset_y, float hitbox_width, float hitbox_height) : base(new Sprite(walkTextures[0]))
         {
             this.walkTextures = walkTextures;
             Position = position;
             Obj!.Origin = new Vector2f(walkTextures[0].Size.X / 2f, walkTextures[0].Size.Y / 2f);
-            this.Tag = "Enemy";
+            
             this.maxHealth = health;
             this.health = health;
             this.damage = damage;
             this.speed = speed;
-
+            
             shadow = new EllipseShape(shadow_size, new Vector2f(2f, 0.5f));
             shadow.FillColor = new Color(0, 0, 0, 120);
             shadow.Origin = new Vector2f(shadow.Radius, shadow.Radius);
@@ -90,12 +91,12 @@ namespace meltedhope
             //window.Draw(hitbox);
             changed_hitbox_position = false;
             animationTimer += deltaTime;
-            if (lock_animation_damage == false)
+            if (lock_animation_damage == false && canmove)
             {
                 if (GameScreen.Instance?.GetFirstByTag("Player") is Player player)
                     GoToPlayer(player, deltaTime);
             }
-            else
+            else if(canmove)
             { 
             this.Position += knocback_direction * (speed * deltaTime);
             }

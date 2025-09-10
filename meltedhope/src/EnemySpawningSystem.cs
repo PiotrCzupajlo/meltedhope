@@ -30,6 +30,7 @@ namespace meltedhope.src
             if (spawntime > spawncooldown)
             {
                 SpawnEnemy(new BasicZombie(new SFML.System.Vector2f(900,900)),window,clampx,clampy);
+                SpawnEnemy(new Shooting_Statue(new SFML.System.Vector2f(900,900)),window,clampx,clampy);
                 spawntime = 0;
             }
             if (bosscooldown < bossspawntime && GameScreen.Instance.activeBoss == false)

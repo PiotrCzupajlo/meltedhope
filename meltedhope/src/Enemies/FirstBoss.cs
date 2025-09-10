@@ -59,7 +59,7 @@ namespace meltedhope.src.Enemies
         public float max_height_of_jump = 0;
         
         
-        public FirstBoss(Vector2f position) : base(walkTextures, walkTexture_damaged, takingdamage, position, health: 5f, damage: 5f, speed: 200f, shadow_offset_x: 15, shadow_offset_y: -3, dynamic_mirrored_offset: -2,100f,80,200,50,100,400,400)
+        public FirstBoss(Vector2f position) : base(walkTextures, walkTexture_damaged, takingdamage, position, health: 100f, damage: 5f, speed: 200f, shadow_offset_x: 15, shadow_offset_y: -3, dynamic_mirrored_offset: -2,100f,80,200,50,100,400,400)
         {
             Obj!.Scale = new Vector2f(4f, 4f);
             bodys= new List<GameObject<Sprite>>();
@@ -225,6 +225,7 @@ namespace meltedhope.src.Enemies
             {
                 body.ToDestroy = true;
             }
+            GameScreen.Instance.activeBoss = false;
             GameScreen.Instance?.AddLessImportant(new Old_Wax(this.Position.X + 50, this.Position.Y));
 
             GameScreen.Instance?.AddLessImportant(new YellowXpStar(this.Position.X - 50, this.Position.Y));
